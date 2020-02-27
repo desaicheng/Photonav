@@ -120,7 +120,7 @@
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars-intl@latest/dist/handlebars-intl.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-
+    {% verbatim %}
     <script>
         window.onload = main;
 
@@ -152,139 +152,19 @@
                 const usersLatitude = position.coords.latitude;
                 const usersLongitude = position.coords.longitude;
                 $.ajax({
+                    type: "GET",
                     url: '/ajax/getLatLon',
                     data: {
                         'latitude': usersLatitude,
                         'longitude': usersLongitude
                     },
                     dataType: 'json',
-                    success: function (data) {
-
-                        // document.getElementById("location-info").innerHTML = `
-                        //   <p>Your location is: {"latitude": ${usersLatitude}, "longitude": ${usersLongitude}}</p>
-                        // `;
-
-                        var spots = JSON.parse(`
-                [
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.78803833333333,-122.40748666666667",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-0",
-                    "imgSrc": "../static/images/UnionSquare/27403649212_ae35df7075_o.jpg",
-                    "latitude": 37.78803833333333,
-                    "longitude": -122.40748666666667,
-                    "neighborhood": "Union Square"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.718472222222225,-122.39899444444445",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-1",
-                    "imgSrc": "../static/images/FisherMansWharf/39174895815_c099ef1a27_o.jpg",
-                    "latitude": 37.718472222222225,
-                    "longitude": -122.39899444444445,
-                    "neighborhood": "Fisherman's Wharf"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.77613888888889,-122.433425",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-2",
-                    "imgSrc": "../static/images/PaintedLadies/38952046004_295f53f593_o.jpg",
-                    "latitude": 37.77613888888889,
-                    "longitude": -122.433425,
-                    "neighborhood": "PaintedLadies"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.77579444444444,-122.43373055555556",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-3",
-                    "imgSrc": "../static/images/PaintedLadies/35912827354_767325661e_o.jpg",
-                    "latitude": 37.77579444444444,
-                    "longitude": -122.43373055555556,
-                    "neighborhood": "PaintedLadies"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.80200555555555,-122.41945",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-4",
-                    "imgSrc": "../static/images/LombardStreet/16444818579_c2fe6cf1fd_o.jpg",
-                    "latitude": 37.80200555555555,
-                    "longitude": -122.41945,
-                    "neighborhood": "Lombard Street"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.802186111111105,-122.41792222222223",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-5",
-                    "imgSrc": "../static/images/LombardStreet/36620502185_48976bb7a7_o.jpg",
-                    "latitude": 37.802186111111105,
-                    "longitude": -122.41792222222223,
-                    "neighborhood": "Lombard Street"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.809155555555556,-122.4109888888889",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-6",
-                    "imgSrc": "../static/images/Pier39/21767330458_37cd9ca040_o.jpg",
-                    "latitude": 37.809155555555556,
-                    "longitude": -122.4109888888889,
-                    "neighborhood": "Pier 39"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.8276436,-122.4813285",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-7",
-                    "imgSrc": "../static/images/GoldenGate/48030448276_947f8d48ed_o.jpg",
-                    "latitude": 37.8276436,
-                    "longitude": -122.4813285,
-                    "neighborhood": "Golden Gate"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.808680555555554,-122.47523611111112",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-8",
-                    "imgSrc": "../static/images/GoldenGate/35833135403_cbf3e4d286_o.jpg",
-                    "latitude": 37.808680555555554,
-                    "longitude": -122.47523611111112,
-                    "neighborhood": "Golden Gate"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.75498611111111,-122.44660277777778",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-9",
-                    "imgSrc": "../static/images/TwinPeaks/35889452874_1c54669e59_o.jpg",
-                    "latitude": 37.75498611111111,
-                    "longitude": -122.44660277777778,
-                    "neighborhood": "Twin Peaks"
-                  },
-                  {
-                    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=37.75503055555556,-122.44723611111111",
-                    "distanceAway": 0.5,
-                    "imgId": "spot-img-10",
-                    "imgSrc": "../static/images/TwinPeaks/43466911872_b52d817d68_b.jpg",
-                    "latitude": 37.75503055555556,
-                    "longitude": -122.44723611111111,
-                    "neighborhood": "Twin Peaks"
-                  }
-                ]
-              `);
-
-                        for (const spot of spots) {
-                            let img = document.getElementById(spot.imgId);
-
-                            let latitude = spot["latitude"];
-                            let longitude = spot["longitude"];
-
-                            let distanceInKm = getDistanceFromLatLonInKm(
-                                latitude,
-                                longitude,
-                                usersLatitude,
-                                usersLongitude
-                            );
-                            let distance = distanceInKm / 1.6;
-                            console.log(`distance: ${distance}`);
-                            spot.distanceAway = distance;
-                        }
-                        spots.sort((a, b) => (a.distanceAway > b.distanceAway ? 1 : -1));
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.info('error');
+                        alert(xhr.status);
+                        alert(thrownError);
+                    },
+                    success: function (spots) {
 
                         const photoSpotTemplate = `
                 <div class="col mb-4">
@@ -295,7 +175,7 @@
                       </a>
                       <div class="card-body" style="height:50%">
                         <h5 class="card-title">{{neighborhood}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{distanceAway}} Miles Away</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{formatNumber distanceAway}} Miles Away</h6>
                         <p><a href="{{directionsUrl}}" class="card-link" data-clickimg="{{imgSrc}}" data-clicktype="text_clickthrough">Directions to photo spot ↗️</a></p>
                         <a href="javascript://" id="{{neighborhood}}-popover" data-toggle="popover" data-html="true" title="{{neighborhood}} Info" data-trigger="focus" data-content="<h1>test</h1>"> 
                         Info
@@ -339,4 +219,5 @@
             }
         }
     </script>
+    {% endverbatim %}
 </body>
