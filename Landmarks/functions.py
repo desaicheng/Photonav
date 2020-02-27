@@ -9,10 +9,11 @@ def getPhotos(queryStatement, userLatitude, userLongitude):
         data = cursor.fetchall()
     spots = []
     for spot in data:
+        ending = len(spot[1])-spot[1].rfind('.')
         newObj = {
             "directionsUrl": spot[2],
             "imgId": spot[0],
-            "imgSrc": "../static/images/{}/".format(spot[5].replace(" ", ""))+spot[1][:24]+'.jpg',
+            "imgSrc": "../static/images/{}/".format(spot[5].replace(" ", ""))+spot[1][:28-ending]+spot[1][-ending:],
             "latitude": spot[4],
             "longitude": spot[3],
             "neighborhood": spot[5]
