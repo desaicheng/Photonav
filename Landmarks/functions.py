@@ -3,7 +3,19 @@ from django.db import connection
 from haversine import haversine, Unit
 
 
-def getPhotos(queryStatement, userLatitude, userLongitude):
+def searchIndex(arr, val, key):
+    l = 0
+    r = len(arr)-1
+    while r-l > 1:
+        m = (r+l)//2
+        if arr[m][key] < val:
+            l = m
+        else:
+            r = m
+    return r
+
+
+def getPhotos(queryStatement, userLatitude, userLongitude, radius):
     with connection.cursor() as cursor:
         cursor.execute(queryStatement)
         data = cursor.fetchall()
@@ -26,4 +38,5 @@ def getPhotos(queryStatement, userLatitude, userLongitude):
     def distance(elem):
         return elem['distanceAway']
     spots.sort(key=distance)
-    return spots
+    maxIndex = searchIndex(spots, radius, 'distanceAway')
+    return spots[:maxIndex]
