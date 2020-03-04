@@ -1,3 +1,8 @@
+/* html{
+    height: 1500px;
+} */
 body{
+    min-height: 100vh;
     background: linear-gradient(to bottom,red,blue,green,yellow);
+    background-repeat: no-repeat;
 }

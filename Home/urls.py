@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import home, getLatLon, sortBy
+from .views import home, getLandmarks, sortBy
 
 urlpatterns = [
     path('', home, name="home"),
-    path('ajax/getLatLon', getLatLon, name="getLatLon"),
+    path('ajax/getLandmarks', getLandmarks, name="getLandmarks"),
     path('ajax/sortBy', sortBy, name="sortBy"),
 ]

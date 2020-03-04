@@ -13,14 +13,12 @@
                 alert(thrownError);
             },
             success: function (spots) {
-                console.info(spots)
                 addCards(spots);
             }
 
         });
     };
     function newSort(type) {
-        // document.getElementById("button-display-distance").value = type;
         document.getElementById("button-display-sort").innerText = type
         sortLandmarks(type)
     }

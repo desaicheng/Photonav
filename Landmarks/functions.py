@@ -12,6 +12,8 @@ def searchIndex(arr, val, key):
             l = m
         else:
             r = m
+    if arr[r][key] > val:
+        return r-1
     return r
 
 
@@ -21,19 +23,17 @@ def getPhotos(queryStatement, userLatitude, userLongitude, radius):
         data = cursor.fetchall()
     spots = []
     for spot in data:
-        ending = len(spot[1])-spot[1].rfind('.')
         newObj = {
-            "directionsUrl": spot[2],
-            "imgId": spot[0],
-            "imgSrc": "../static/images/{}/".format(spot[5].replace(" ", ""))+spot[1][:28-ending]+spot[1][-ending:],
+            "imgSrc": "../static/images/{}/".format(spot[0].replace(" ", ""))+spot[2],
             "latitude": spot[4],
             "longitude": spot[3],
-            "neighborhood": spot[5]
+            "neighborhood": spot[0]
 
         }
         newObj['distanceAway'] = haversine(
             (float(userLatitude), float(userLongitude)), (newObj['latitude'], newObj['longitude']), unit="mi")
         spots.append(newObj)
+    print(spots)
 
     def distance(elem):
         return elem['distanceAway']
