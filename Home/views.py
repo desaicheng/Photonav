@@ -2,24 +2,49 @@ from django.shortcuts import render, HttpResponse
 from django.http import HttpResponse, JsonResponse
 from django.apps import apps
 from Landmarks.functions import getPhotos
+from django.db import connection
+from haversine import haversine, Unit
 import json
 
-photo = apps.get_model('Landmarks', 'photo')
+# photo = apps.get_model('Landmarks', 'photo')
 data = []
+userLatitude = "-75.2509766"
+userLongitude = "-0.071389"
 
 
 def getLandmarks(request):
     global data
+    global userLatitude
+    global userLongitude
     if request.is_ajax():
         userLatitude = request.GET.get('latitude', None)
         userLongitude = request.GET.get('longitude', None)
         radius = float(request.GET.get('radius', 100000))
         maxDiff = radius/10
-        # queryStatement = 'SELECT * FROM Landmarks_landmark WHERE ABS(longitude-{}) <= {} AND ABS(latitude-{}) <= {}'.format(
-        #     userLongitude, maxDiff, userLatitude, maxDiff)
         queryStatement = 'SELECT * FROM Landmarks_landmark LEFT JOIN landmarks_landmarkCarousel ON Landmarks_landmark.neighborhood = landmarks_landmarkCarousel.landmark_id'
         data = getPhotos(queryStatement, userLatitude, userLongitude, radius)
         return HttpResponse(json.dumps(data))
+
+
+def getLandmarkInfo(request):
+    if request.is_ajax():
+        neighborhood = str(request.GET.get('neighborhood', None))
+        queryStatement = 'SELECT * FROM Landmarks_photo WHERE landmark_id=\'{}\''.format(
+            neighborhood)
+        with connection.cursor() as cursor:
+            cursor.execute(queryStatement)
+            photos = cursor.fetchall()
+        photosInfo = []
+        for photo in photos:
+            distanceAway = haversine(
+                (float(userLatitude), float(userLongitude)), (photo[4], photo[3]), unit="mi")
+            curPhoto = {
+                "imgSrc": "../static/images/{}/{}".format(photo[5].replace(" ", ""), photo[1]),
+                "distanceAway": distanceAway,
+                "directionsUrl": photo[2]
+            }
+            photosInfo.append(curPhoto)
+        return HttpResponse(json.dumps(photosInfo))
 
 
 def sortBy(request):
@@ -32,7 +57,6 @@ def sortBy(request):
         def Distance(elem):
             return elem['distanceAway']
         data.sort(key=Distance)
-    print(data)
     return HttpResponse(json.dumps(data))
 
 

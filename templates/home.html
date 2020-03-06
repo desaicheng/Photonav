@@ -78,6 +78,7 @@
             <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
         </div>
         {% include 'landmarkPictureModal.html' %}
+        {% include 'landmarkModal.html' %}
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
@@ -100,7 +101,6 @@
             document.getElementById("cards").innerHTML = "";
             const photoSpotTemplate = `
                 <div class="col mb-4">
-                  <div class="card h-100 border-white">
                     <div class="card" style="width: 18rem; height:400px;">
                       <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}" style="height:50%;overflow-y:hidden;">
                         <img id={{imgId}} class="carousel-img" src={{imgSrc}} style="width:100%;height=100%;">
@@ -109,12 +109,11 @@
                         <h5 class="card-title">{{neighborhood}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{formatNumber distanceAway}} Miles Away</h6>
                         <p><a href="{{directionsUrl}}" class="card-link" data-clickimg="{{imgSrc}}" data-clicktype="text_clickthrough">Directions to photo spot ↗️</a></p>
-                        <a href="javascript://" id="{{neighborhood}}-popover" data-toggle="popover" data-html="true" title="{{neighborhood}} Info" data-trigger="focus" data-content="<h1>test</h1>"> 
+                        <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-modal" data-landmark="{{neighborhood}}"> 
                         Info
                         </a>
                       </div>
                     </div>
-                  </div>
                 </div>
               `;
             const renderPhotoSpotTemplate = Handlebars.compile(photoSpotTemplate);
@@ -188,4 +187,5 @@
     {% include 'distanceFilterScript.html' %}
     {% include 'sortButtonScript.html' %}
     {% include 'landmarkPictureModalScript.html' %}
+    {% include 'landmarkModalScript.html' %}
 </body>

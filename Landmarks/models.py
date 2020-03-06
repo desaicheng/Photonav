@@ -48,7 +48,9 @@ class landmarkCarousel(models.Model):
 class photo(models.Model):
     imgSrc = models.ImageField(max_length=255)
     directionsUrl = models.URLField(max_length=255)
-    longitude = models.FloatField(max_length=15, db_index=True)
-    latitude = models.FloatField(max_length=15, db_index=True)
+    longitude = models.FloatField(
+        max_length=15, db_index=True, default="-0.071389")
+    latitude = models.FloatField(
+        max_length=15, db_index=True, default="-75.2509766")
     landmark = models.ForeignKey(
         landmark, on_delete=models.CASCADE, null=True, blank=True)
