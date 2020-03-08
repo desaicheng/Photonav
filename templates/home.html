@@ -75,7 +75,7 @@
             <!-- {% include 'distanceFilter.html' %} -->
         </div>
         <div class="card-deck">
-            <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
+            <div id="cards" class="row row-cols-1 row-cols-md-3" style="margin: mb-2;"></div>
         </div>
         {% include 'landmarkPictureModal.html' %}
         {% include 'landmarkModal.html' %}
@@ -100,15 +100,14 @@
         function addCards(spots) {
             document.getElementById("cards").innerHTML = "";
             const photoSpotTemplate = `
-                <div class="col mb-4">
-                    <div class="card" style="width: 18rem; height:400px;">
-                      <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}" style="height:50%;overflow-y:hidden;">
-                        <img id={{imgId}} class="carousel-img" src={{imgSrc}} style="width:100%;height=100%;">
+                <div class="col-md-4">
+                    <div class="card" style="width: 100%; height:400px;">
+                      <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}" style="height:50%;width:100%;overflow-y:hidden;">
+                        <img src={{imgSrc}} style="width:286px;height=200px;object-fit:fill">
                       </a>
                       <div class="card-body" style="height:50%">
                         <h5 class="card-title">{{neighborhood}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{formatNumber distanceAway}} Miles Away</h6>
-                        <p><a href="{{directionsUrl}}" class="card-link" data-clickimg="{{imgSrc}}" data-clicktype="text_clickthrough">Directions to photo spot ↗️</a></p>
                         <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-modal" data-landmark="{{neighborhood}}"> 
                         Info
                         </a>

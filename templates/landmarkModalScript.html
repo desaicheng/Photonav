@@ -20,18 +20,18 @@
                 document.getElementById('landmark-modal-title').innerText = neighborhood;
                 document.getElementById('scrollmenu').innerHTML = "";
                 const landmarkPhotosTemplate =
-                    `<div class="col mb-3" style="display: inline-block;">
-                            <div class="card" style="width: 18rem; height:400px;">
-                            <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}" style="height:50%;overflow-y:hidden;">
-                                <img id={{imgId}} class="carousel-img" src={{imgSrc}} style="width:100%;height=100%;">
-                            </a>
-                            <div class="card-body" style="height:50%">
-                                <div>{{formatNumber distanceAway}} Miles Away</div>
-                                <p><a href="{{directionsUrl}}" class="card-link" data-clicktype="text_clickthrough">Directions to photo spot ↗️</a></p>
-                                <div>text</div>
-                            </div>
-                            </div>
+                    `<div style="display: inline-block;">
+                        <div class="card" style="width: 18rem; height:400px;">
+                        <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}" style="height:50%;overflow-y:hidden;">
+                            <img src={{imgSrc}} style="width:100%;height=100%;">
+                        </a>
+                        <div class="card-body" style="height:50%">
+                            <div>{{formatNumber distanceAway}} Miles Away</div>
+                            <p><a href="{{directionsUrl}}" class="card-link" data-clicktype="text_clickthrough">Directions to photo spot ↗️</a></p>
+                            <div>text</div>
                         </div>
+                        </div>
+                    </div>
                     
               `;
                 const renderLandmarkPhotosTemplate = Handlebars.compile(landmarkPhotosTemplate);
