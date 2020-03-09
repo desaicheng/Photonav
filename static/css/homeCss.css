@@ -24,13 +24,26 @@ div.scrollmenu > div {
     border-width: 5px;
     border-color:rgb(20,110,20);
     width: 100%; 
-    height:400px;
+}
+.card-body{
+    padding-top: 0px;
 }
 #cards{
     margin-top: 30px;
 }
+.flex-container{
+    display:flex;
+    justify-content: center;
+    width: 100%;
+}
+.button-container{
+    height:20px
+}
+.flex-item{
+    display:inline-block;
+}
 #image-modal{
-    height:50%;
+    height:70%;
     width:100%;
     overflow-y:hidden;
 }
@@ -47,4 +60,25 @@ div.scrollmenu > div {
     width:100%;
     margin-right:10%;
     margin-left:10%;
+}
+/* when window size is large */
+@media only screen and (min-width: 600px) {
+    .card {
+      height:300px;
+    }
+    .card > a > img{
+        height:100%;
+        object-fit: cover;
+    }
+  }
+/* when window size is small */
+@media only screen and (max-width: 600px) {
+    .card-container {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    main{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 }

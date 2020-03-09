@@ -59,22 +59,24 @@
             <div class="starter-template">
                 <div style="width:100%;text-align: center;display:inline-block">
                     <h1 style="text-align:center;font-size:40px;color:darkblue">
-                        Photonav {% include 'distanceFilter.html' %}
+                        Photonav
                     </h1>
                 </div>
                 <div id="location-warning"></div>
                 <div class="row" id="second-header-row">
                     <h2 class="lead" id="second-header">
-                        {% include 'sortButton.html' %}Find the exact GPS coordinates where your favorite photos are
+                        Find the exact GPS coordinates where your favorite photos are
                         taken.
                     </h2>
                 </div>
                 <div id="location-info"></div>
             </div>
-
-            <!-- {% include 'distanceFilter.html' %} -->
         </div>
-        <div class="card-deck">
+        <div class="flex-container">
+            {% include 'distanceFilter.html' %}
+            {% include 'sortButton.html' %}
+        </div>
+        <div id="card-deck">
             <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
         </div>
         {% include 'landmarkPictureModal.html' %}
@@ -100,17 +102,18 @@
         function addCards(spots) {
             document.getElementById("cards").innerHTML = "";
             const photoSpotTemplate = `
-                <div class="col-md-4 col-sm-6 col-lg-3 col-xs-12" style = "margin-top:30px">
+                <div class="col-md-4 col-sm-6 col-lg-3 col-xs-12 card-container" style = "margin-top:30px">
                     <div class="card">
                       <a type="button" id="image-modal" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}">
-                        <img src={{imgSrc}} style="width:100%;height=200px;object-fit:fill">
+                        <img src={{imgSrc}} style="width:100%;object-fit:fill">
                       </a>
-                      <div class="card-body" style="height:50%;text-align:center;">
-                        <h5 class="card-title">{{neighborhood}}</h5>
+                      <div class="card-body" style="height:30%;text-align:center;">
+                        <h5 class="card-title">{{neighborhood}}
+                            <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-modal" data-landmark="{{neighborhood}}"> 
+                            Info
+                            </a>
+                        </h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{formatNumber distanceAway}} Miles Away</h6>
-                        <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-modal" data-landmark="{{neighborhood}}"> 
-                        Info
-                        </a>
                       </div>
                     </div>
                 </div>
@@ -153,7 +156,9 @@
                 const usersLatitude = position.coords.latitude;
                 const usersLongitude = position.coords.longitude;
                 const radius = document.getElementById("button-display-distance").value;
-
+                if ($(window).width() > 514) {
+                    document.getElementById("card-deck").classList.add('card-deck');
+                }
                 getLandmarks(usersLatitude, usersLongitude, radius);
 
                 $(document).ready(function (directions) {
@@ -187,4 +192,5 @@
     {% include 'sortButtonScript.html' %}
     {% include 'landmarkPictureModalScript.html' %}
     {% include 'landmarkModalScript.html' %}
+    {% include 'listener.html' %}
 </body>
