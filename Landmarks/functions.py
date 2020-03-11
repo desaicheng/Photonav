@@ -1,26 +1,16 @@
 from .models import photo
 from django.db import connection
 from haversine import haversine, Unit
-
-
-def searchIndex(arr, val, key):
-    l = 0
-    r = len(arr)-1
-    while r-l > 1:
-        m = (r+l)//2
-        if arr[m][key] < val:
-            l = m
-        else:
-            r = m
-    if arr[r][key] > val:
-        return r-1
-    return r
+from commonFunctions.functions import searchIndex
 
 
 def getPhotos(queryStatement, userLatitude, userLongitude, radius):
-    with connection.cursor() as cursor:
-        cursor.execute(queryStatement)
-        data = cursor.fetchall()
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(queryStatement)
+            data = cursor.fetchall()
+    except:
+        raise Exception('Could not get Photos')
     spots = []
     for spot in data:
         newObj = {

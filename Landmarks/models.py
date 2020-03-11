@@ -29,7 +29,7 @@ class landmark(models.Model):
 #         return self.name
 
 
-class landmarkCarousel(models.Model):
+class frontPagePhotos(models.Model):
     imgSrc = models.ImageField(
         max_length=255, default="../static/images/Extras/notFound.jpg")
     longitude = models.FloatField(
@@ -38,6 +38,7 @@ class landmarkCarousel(models.Model):
         max_length=15, db_index=True, default="-75.2509766")
     landmark = models.ForeignKey(
         landmark, on_delete=models.CASCADE, null=True, blank=True)
+    directionsUrl = models.CharField(max_length=255, default=None)
 
     def __str__(self):
         return self.landmark.neighborhood

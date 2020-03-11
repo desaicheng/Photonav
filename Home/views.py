@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.http import HttpResponse, JsonResponse
 from django.apps import apps
 from Landmarks.functions import getPhotos
+from commonFunctions.functions import fixString
 from django.db import connection
 from haversine import haversine, Unit
 import json
@@ -21,7 +22,7 @@ def getLandmarks(request):
         userLongitude = request.GET.get('longitude', None)
         radius = float(request.GET.get('radius', 100000))
         maxDiff = radius/10
-        queryStatement = 'SELECT * FROM Landmarks_landmark LEFT JOIN landmarks_landmarkCarousel ON Landmarks_landmark.neighborhood = landmarks_landmarkCarousel.landmark_id'
+        queryStatement = 'SELECT * FROM Landmarks_landmark LEFT JOIN landmarks_frontPagePhotos ON Landmarks_landmark.neighborhood = landmarks_frontPagePhotos.landmark_id'
         data = getPhotos(queryStatement, userLatitude, userLongitude, radius)
         return HttpResponse(json.dumps(data))
 
@@ -29,6 +30,7 @@ def getLandmarks(request):
 def getLandmarkInfo(request):
     if request.is_ajax():
         neighborhood = str(request.GET.get('neighborhood', None))
+        neighborhood = fixString(neighborhood)
         queryStatement = 'SELECT * FROM Landmarks_photo WHERE landmark_id=\'{}\''.format(
             neighborhood)
         with connection.cursor() as cursor:
@@ -45,19 +47,24 @@ def getLandmarkInfo(request):
             }
             photosInfo.append(curPhoto)
         return HttpResponse(json.dumps(photosInfo))
+    else:
+        raise Exception('Invaid Request')
 
 
 def sortBy(request):
-    sortType = request.GET.get('type', None)
-    if sortType == 'Name':
-        def Name(elem):
-            return elem['neighborhood']
-        data.sort(key=Name)
-    elif sortType == 'Distance':
-        def Distance(elem):
-            return elem['distanceAway']
-        data.sort(key=Distance)
-    return HttpResponse(json.dumps(data))
+    if request.is_ajax():
+        sortType = request.GET.get('type', None)
+        if sortType == 'Name':
+            def Name(elem):
+                return elem['neighborhood']
+            data.sort(key=Name)
+        elif sortType == 'Distance':
+            def Distance(elem):
+                return elem['distanceAway']
+            data.sort(key=Distance)
+        return HttpResponse(json.dumps(data))
+    else:
+        raise Exception('Invaid Request')
 
 
 def home(request):
