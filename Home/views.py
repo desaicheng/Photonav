@@ -13,6 +13,10 @@ userLatitude = "-75.2509766"
 userLongitude = "-0.071389"
 
 
+def errorPage(request):
+    return render(request, "errorPage.html")
+
+
 def getLandmarks(request):
     global data
     global userLatitude
@@ -25,6 +29,8 @@ def getLandmarks(request):
         queryStatement = 'SELECT * FROM Landmarks_landmark LEFT JOIN landmarks_frontPagePhotos ON Landmarks_landmark.neighborhood = landmarks_frontPagePhotos.landmark_id'
         data = getPhotos(queryStatement, userLatitude, userLongitude, radius)
         return HttpResponse(json.dumps(data))
+    else:
+        raise Exception('Invaid Request')
 
 
 def getLandmarkInfo(request):
