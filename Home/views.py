@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.http import HttpResponse, JsonResponse
 from django.apps import apps
 from Landmarks.functions import getPhotos
@@ -11,10 +11,6 @@ import json
 data = []
 userLatitude = "-75.2509766"
 userLongitude = "-0.071389"
-
-
-def errorPage(request):
-    return render(request, "errorPage.html")
 
 
 def getLandmarks(request):
@@ -39,9 +35,12 @@ def getLandmarkInfo(request):
         neighborhood = fixString(neighborhood)
         queryStatement = 'SELECT * FROM Landmarks_photo WHERE landmark_id=\'{}\''.format(
             neighborhood)
-        with connection.cursor() as cursor:
-            cursor.execute(queryStatement)
-            photos = cursor.fetchall()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(queryStatement)
+                photos = cursor.fetchall()
+        except:
+            raise Exception('Could not get landmark info')
         photosInfo = []
         for photo in photos:
             distanceAway = haversine(
