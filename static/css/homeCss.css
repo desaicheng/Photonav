@@ -47,6 +47,12 @@ div.scrollmenu > div {
     width:100%;
     overflow-y:hidden;
 }
+#landmark-modal{
+    /* z-index: 99; */
+}
+#landmark-picture-modal{
+    z-index: 100;
+}
 .modal{
     overflow:auto;
 }
