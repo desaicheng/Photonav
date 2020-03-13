@@ -5,4 +5,9 @@
         var modal = $(this)
         $('#modal-image').attr('src', src);
     })
+    $("#landmark-picture-modal").click(function (ev) {
+        console.info('f')
+        if (ev.target != this) return;
+        $('#landmark-picture-modal').modal('hide');
+    });
 </script>

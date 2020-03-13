@@ -79,8 +79,11 @@
         <div id="card-deck">
             <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
         </div>
-        {% include 'landmarkPictureModal.html' %}
         {% include 'landmarkModal.html' %}
+        {% include 'landmarkPictureModal.html' %}
+        <div id="paginator-container">
+            {% include 'paginator.html' %}
+        </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"

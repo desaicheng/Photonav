@@ -51,10 +51,17 @@ div.scrollmenu > div {
     /* z-index: 99; */
 }
 #landmark-picture-modal{
-    z-index: 100;
+    
+}
+#landmark-picture-close{
+    padding: 20px;
+    font-size: 35px;
 }
 .modal{
     overflow:auto;
+}
+#paginator-container{
+    margin-top: 20px;
 }
 #second-header-row{
     width:100%;
