@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'Photonav.wsgi.application'
+WSGI_APPLICATION = 'Photonav.wsgi.application'
 
 
 # Database
