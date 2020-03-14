@@ -25,7 +25,7 @@ SECRET_KEY = '!+fip&sf(s!6sa4)iq$hr%(#(fd_qy9$@xz5)$u+#unl6(vfi&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://photonav.herokuapp.com']
 
 
 # Application definition
