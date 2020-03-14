@@ -25,7 +25,7 @@ SECRET_KEY = '!+fip&sf(s!6sa4)iq$hr%(#(fd_qy9$@xz5)$u+#unl6(vfi&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://photonav.herokuapp.com']
+ALLOWED_HOSTS = ['photonav.herokuapp.com']
 
 
 # Application definition
@@ -129,13 +129,13 @@ STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [
+# STATICFILES_DIRS = [
 
-    os.path.join(BASE_DIR, 'static')
+#     os.path.join(BASE_DIR, 'static')
 
-]
+# ]
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
