@@ -62,6 +62,14 @@ div.scrollmenu > div {
 }
 #paginator-container{
     margin-top: 20px;
+    display: inline-block;
+    justify-content: flex-start;
+    background-color: aliceblue;
+    /* align-items: flex-start; */
+}
+#pagination-number-button{
+    display: inline-flex;
+    margin-right: 15px;
 }
 #second-header-row{
     width:100%;

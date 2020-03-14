@@ -6,27 +6,49 @@ from commonFunctions.functions import fixString
 from django.db import connection
 from haversine import haversine, Unit
 import json
+import math
 
 # photo = apps.get_model('Landmarks', 'photo')
-data = []
-userLatitude = "-75.2509766"
-userLongitude = "-0.071389"
+
+
+class userInfo:
+    def __init__(self):
+        self.data = []
+        self.userLatitude = "-75.2509766"
+        self.userLongitude = "-0.071389"
+        self.paginationNumber = 12
+        self.sortType = 'Distance'
+        self.radius = 1000000
+
+
+user = userInfo()
+
+
+# get set of landmarks
 
 
 def getLandmarks(request):
-    global data
-    global userLatitude
-    global userLongitude
     if request.is_ajax():
-        userLatitude = request.GET.get('latitude', None)
-        userLongitude = request.GET.get('longitude', None)
-        radius = float(request.GET.get('radius', 100000))
-        maxDiff = radius/10
+        user.userLatitude = request.GET.get('latitude', None) if request.GET.get(
+            'latitude', None) != 'skip' else user.userLatitude
+        user.userLongitude = request.GET.get('longitude', None) if request.GET.get(
+            'longitude', None) != 'skip' else user.userLongitude
+        user.radius = float(request.GET.get('radius', 100000)) if int(request.GET.get(
+            'radius', 100000)) != -1 else user.radius
+        # page number
+        page = int(request.GET.get('page', 1))
+        start = (page-1)*user.paginationNumber
+        end = page*user.paginationNumber
+        maxDiff = user.radius/10
         queryStatement = 'SELECT * FROM Landmarks_landmark LEFT JOIN landmarks_frontPagePhotos ON Landmarks_landmark.neighborhood = landmarks_frontPagePhotos.landmark_id'
-        data = getPhotos(queryStatement, userLatitude, userLongitude, radius)
-        return HttpResponse(json.dumps(data))
+        user.data = getPhotos(queryStatement, user.userLatitude,
+                              user.userLongitude, user.radius)
+        sort(request)
+        return HttpResponse(json.dumps(user.data[start:end]))
     else:
         raise Exception('Invaid Request')
+
+# get information about a landmark
 
 
 def getLandmarkInfo(request):
@@ -44,7 +66,7 @@ def getLandmarkInfo(request):
         photosInfo = []
         for photo in photos:
             distanceAway = haversine(
-                (float(userLatitude), float(userLongitude)), (photo[4], photo[3]), unit="mi")
+                (float(user.userLatitude), float(user.userLongitude)), (photo[4], photo[3]), unit="mi")
             curPhoto = {
                 "imgSrc": "../static/images/{}/{}".format(photo[5].replace(" ", ""), photo[1]),
                 "distanceAway": distanceAway,
@@ -55,21 +77,46 @@ def getLandmarkInfo(request):
     else:
         raise Exception('Invaid Request')
 
+# change number of photos displayed on one page
+
+
+def newPaginationNumber(request):
+    if request.is_ajax():
+        user.paginationNumber = int(request.GET.get('num', 12))
+        # todo - change the number of pages that can be displayed
+        numOfPages = math.ceil(len(user.data)/user.paginationNumber)
+        ret = {
+            "numOfPages": numOfPages,
+        }
+        return HttpResponse(json.dumps(ret))
+    else:
+        raise Exception('Invaid Request')
+
+# sort landmarks by criteria
+
+
+def sort(request):
+    if user.sortType == 'Name':
+        def Name(elem):
+            return elem['neighborhood']
+        user.data.sort(key=Name)
+    elif user.sortType == 'Distance':
+        def Distance(elem):
+            return elem['distanceAway']
+        user.data.sort(key=Distance)
+
+# call sort function
+
 
 def sortBy(request):
     if request.is_ajax():
-        sortType = request.GET.get('type', None)
-        if sortType == 'Name':
-            def Name(elem):
-                return elem['neighborhood']
-            data.sort(key=Name)
-        elif sortType == 'Distance':
-            def Distance(elem):
-                return elem['distanceAway']
-            data.sort(key=Distance)
-        return HttpResponse(json.dumps(data))
+        user.sortType = request.GET.get('type', None)
+        sort(request)
+        return HttpResponse(json.dumps(user.data[:user.paginationNumber]))
     else:
         raise Exception('Invaid Request')
+
+# render home page
 
 
 def home(request):

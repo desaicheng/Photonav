@@ -1,0 +1,35 @@
+<script>
+    function newPagination(num, isInit) {
+        document.getElementById("pagination-button").innerText = String(num);
+        $.ajax({
+            type: "GET",
+            url: '/ajax/newPaginationNumber',
+            async: false,
+            data: {
+                'num': num
+            },
+            dataType: 'json',
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            },
+            // test
+            success: function (info) {
+                numOfPages = info.numOfPages;
+                if (isInit == false) {
+                    getLandmarks('skip', 'skip', -1, 1);
+                }
+            }
+
+        });
+    };
+    document.getElementById("12-page").onclick = function newNum() {
+        newPagination(12, false);
+    };
+    document.getElementById("24-page").onclick = function newNum() {
+        newPagination(24, false);
+    };
+    document.getElementById("48-page").onclick = function newNum() {
+        newPagination(48, false);
+    };
+</script>
