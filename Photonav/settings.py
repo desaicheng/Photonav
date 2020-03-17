@@ -77,27 +77,27 @@ WSGI_APPLICATION = 'Photonav.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Photonav',
-        'USER': 'PhotonavAdmin',
-        'PASSWORD': 'flyingp1geons',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'heroku_e3bb1c5de5a2f32',
-#         'USER': 'ba2c815962a0e2',
-#         'PASSWORD': 'f217d12a',
-#         'HOST': 'us-cdbr-iron-east-04.cleardb.net',
+#         'NAME': 'Photonav',
+#         'USER': 'PhotonavAdmin',
+#         'PASSWORD': 'flyingp1geons',
+#         'HOST': 'localhost',
 #         'PORT': '3306',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'heroku_e3bb1c5de5a2f32',
+        'USER': 'ba2c815962a0e2',
+        'PASSWORD': 'f217d12a',
+        'HOST': 'us-cdbr-iron-east-04.cleardb.net',
+        'PORT': '3306',
+    }
+}
 
 
 # Password validation
