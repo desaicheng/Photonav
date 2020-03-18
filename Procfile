@@ -1,1 +1,1 @@
-web: gunicorn Photonav.wsgi
+web: gunicorn Photonav.wsgi --log-file -
