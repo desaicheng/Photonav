@@ -1,7 +1,7 @@
 <script>
-    function newPagination(num, isInit) {
+    async function newPagination(num, isInit) {
         document.getElementById("pagination-button").innerText = String(num);
-        $.ajax({
+        return $.ajax({
             type: "GET",
             url: '/ajax/newPaginationNumber',
             async: false,
@@ -17,11 +17,32 @@
             success: function (info) {
                 numOfPages = info.numOfPages;
                 if (isInit == false) {
-                    getLandmarks('skip', 'skip', -1, 1);
+                    getLandmarks('skip', 'skip', -1, 1).then(result => {
+                    }).catch(error => {
+                        console.info(error);
+                    });
                 }
             }
 
         });
+    };
+    function changePage(pageNum) {
+        document.getElementById("page-selections").innerHTML = ""
+        if (pageNum > 2) {
+            document.getElementById("page-selections").innerHTML += `<li class="page-item" onclick = "newPage(1)"><a class="page-link" href="#">1</a></li>`;
+        }
+        if (pageNum > 1) {
+            let lastPage = pageNum - 1;
+            document.getElementById("page-selections").innerHTML += `<li class="page-item" onclick = "newPage(${lastPage})"><a class="page-link" href="#">${lastPage}</a></li>`;
+        }
+        document.getElementById("page-selections").innerHTML += `<li class="page-item disabled"><a class="page-link" href="#">${pageNum}</a></li>`;
+        if (pageNum < numOfPages) {
+            let nextPage = pageNum + 1
+            document.getElementById("page-selections").innerHTML += `<li class="page-item" onclick = "newPage(${nextPage})"><a class="page-link" href="#">${nextPage}</a></li>`;
+        }
+        if (pageNum < numOfPages - 1) {
+            document.getElementById("page-selections").innerHTML += `<li class="page-item" onclick = "newPage(${numOfPages})"><a class="page-link" href="#">${numOfPages}</a></li>`;
+        }
     };
     document.getElementById("12-page").onclick = function newNum() {
         newPagination(12, false);
@@ -31,5 +52,9 @@
     };
     document.getElementById("48-page").onclick = function newNum() {
         newPagination(48, false);
+    };
+    function newPage(pageNum) {
+        getLandmarks('skip', 'skip', -1, pageNum)
+        changePage(pageNum);
     };
 </script>

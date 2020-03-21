@@ -129,9 +129,9 @@
                 ).innerHTML += renderPhotoSpotTemplate(spot);
             }
         }
-        function getLandmarks(usersLatitude, usersLongitude, radius, page) {
+        async function getLandmarks(usersLatitude, usersLongitude, radius, page) {
             console.info(usersLatitude, usersLongitude, radius, page, numOfPages)
-            $.ajax({
+            return $.ajax({
                 type: "GET",
                 url: '/ajax/getLandmarks',
                 async: false,
@@ -156,42 +156,49 @@
         function main() {
             HandlebarsIntl.registerWith(Handlebars);
             // default to 12 landmarks per page on start - check for async???
-            newPagination(12, true);
+            newPagination(12, true).then(result => {
 
+                function locationSuccess(position, data) {
+                    const usersLatitude = position.coords.latitude;
+                    const usersLongitude = position.coords.longitude;
+                    const radius = document.getElementById("button-display-distance").value;
+                    if ($(window).width() > 514) {
+                        document.getElementById("card-deck").classList.add('card-deck');
+                    }
+                    getLandmarks(usersLatitude, usersLongitude, radius, 1).catch(error => {
+                        console.info(error);
+                    });
+                    changePage(1).catch(error => {
+                        console.info(error);
+                    })
 
-            function locationSuccess(position, data) {
-                const usersLatitude = position.coords.latitude;
-                const usersLongitude = position.coords.longitude;
-                const radius = document.getElementById("button-display-distance").value;
-                if ($(window).width() > 514) {
-                    document.getElementById("card-deck").classList.add('card-deck');
+                    $(document).ready(function (directions) {
+                        $('[data-toggle="popover"]').popover();
+                    });
                 }
-                getLandmarks(usersLatitude, usersLongitude, radius, 1);
-
-                $(document).ready(function (directions) {
-                    $('[data-toggle="popover"]').popover();
-                });
-            }
-            function locationError() {
-                document.getElementById("location-warning").innerHTML = `
+                function locationError() {
+                    document.getElementById("location-warning").innerHTML = `
                 <div class="alert alert-danger" role="alert">
                   Unable to access your location. Enable location to see which photo spots are near you!
                 </div>
               `;
-            }
+                }
 
-            if (!navigator.geolocation) {
-                document.getElementById("location-warning").innerHTML = `
+                if (!navigator.geolocation) {
+                    document.getElementById("location-warning").innerHTML = `
                 <div class="alert alert-danger" role="alert">
                   Enable location to see which photo spots are near you!
                 </div>
               `;
-            } else {
-                navigator.geolocation.getCurrentPosition(
-                    locationSuccess,
-                    locationError
-                );
-            }
+                } else {
+                    navigator.geolocation.getCurrentPosition(
+                        locationSuccess,
+                        locationError
+                    );
+                }
+            }).catch(error => {
+                console.info(error);
+            });
         }
     </script>
     {% endverbatim %}

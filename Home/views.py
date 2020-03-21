@@ -19,6 +19,7 @@ class userInfo:
         self.paginationNumber = 12
         self.sortType = 'Distance'
         self.radius = 1000000
+        self.pageNum = 1
 
 
 user = userInfo()
@@ -77,13 +78,14 @@ def getLandmarkInfo(request):
     else:
         raise Exception('Invaid Request')
 
+
 # change number of photos displayed on one page
 
 
 def newPaginationNumber(request):
     if request.is_ajax():
         user.paginationNumber = int(request.GET.get('num', 12))
-        # todo - change the number of pages that can be displayed
+        # user.paginationNumber = 1
         numOfPages = math.ceil(len(user.data)/user.paginationNumber)
         ret = {
             "numOfPages": numOfPages,
