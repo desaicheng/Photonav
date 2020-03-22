@@ -1,7 +1,7 @@
 <script>
     // update user sort criteria and then call getLandmarks
     function sortLandmarks(type) {
-        $.ajax({
+        return $.ajax({
             type: "GET",
             url: '/ajax/sortBy',
             async: false,
