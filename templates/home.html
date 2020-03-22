@@ -200,6 +200,7 @@
             });
         }
         function main() {
+            console.info('refreshed');
             HandlebarsIntl.registerWith(Handlebars);
             async function locationSuccess(position, data) {
                 const usersLatitude = position.coords.latitude;
