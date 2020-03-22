@@ -156,8 +156,9 @@ def sort(request):
 def sortBy(request):
     if request.is_ajax():
         user.sortType = request.GET.get('type', None)
-        sort(request)
-        return HttpResponse(json.dumps(user.data[:user.paginationNumber]))
+        # sort(request)
+        # return HttpResponse(json.dumps(user.data[:user.paginationNumber]))
+        return HttpResponse(json.dumps({}))
     else:
         raise Exception('Invaid Request')
 
