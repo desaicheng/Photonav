@@ -1,4 +1,5 @@
 <script>
+    // change number of photos displayed on one page
     async function newPagination(num, isInit) {
         document.getElementById(`${curPagination}-page`).classList.remove("disabled");
         curPagination = num;
@@ -30,6 +31,7 @@
 
         });
     };
+    // update page selections menu upon page change
     function changePage(pageNum) {
         document.getElementById("page-selections").innerHTML = ""
         if (pageNum > 2) {
@@ -48,6 +50,7 @@
             document.getElementById("page-selections").innerHTML += `<li class="page-item" onclick = "newPage(${numOfPages})"><a class="page-link" href="#">${numOfPages}</a></li>`;
         }
     };
+    // change to a new page
     function newPage(pageNum) {
         getLandmarks('skip', 'skip', -1, pageNum)
         changePage(pageNum);

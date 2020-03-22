@@ -1,4 +1,5 @@
 <script>
+    // get sorted landmarks from backend
     function sortLandmarks(type) {
         $.ajax({
             type: "GET",
@@ -18,8 +19,12 @@
 
         });
     };
+    // new criteria to sort landmarks
     function newSort(type) {
-        document.getElementById("button-display-sort").innerText = type
+        document.getElementById(`${curSort}-button`).classList.remove("disabled");
+        document.getElementById("button-display-sort").innerText = type;
+        curSort = type.toLowerCase();
+        document.getElementById(`${curSort}-button`).classList.add("disabled");
         sortLandmarks(type)
     }
     document.getElementById("name-button").onclick = function sortName() {
