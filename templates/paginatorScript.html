@@ -1,6 +1,8 @@
 <script>
     async function newPagination(num, isInit) {
+        document.getElementById(`${curPagination}-page`).classList.remove("disabled");
         curPagination = num;
+        document.getElementById(`${num}-page`).classList.add("disabled");
         return $.ajax({
             type: "GET",
             url: '/ajax/newPaginationNumber',
@@ -15,7 +17,6 @@
             },
             // test
             success: function (info) {
-                console.info(info.numOfPages);
                 numOfPages = info.numOfPages;
                 if (isInit == false) {
                     document.getElementById("pagination-button").innerText = String(num);
@@ -23,9 +24,7 @@
                     }).catch(error => {
                         console.info(error);
                     });
-                    changePage(1).catch(error => {
-                        console.info(error)
-                    });
+                    changePage(1);
                 }
             }
 
@@ -48,15 +47,6 @@
         if (pageNum < numOfPages - 1) {
             document.getElementById("page-selections").innerHTML += `<li class="page-item" onclick = "newPage(${numOfPages})"><a class="page-link" href="#">${numOfPages}</a></li>`;
         }
-    };
-    document.getElementById("12-page").onclick = function newNum() {
-        newPagination(12, false);
-    };
-    document.getElementById("24-page").onclick = function newNum() {
-        newPagination(24, false);
-    };
-    document.getElementById("48-page").onclick = function newNum() {
-        newPagination(48, false);
     };
     function newPage(pageNum) {
         getLandmarks('skip', 'skip', -1, pageNum)

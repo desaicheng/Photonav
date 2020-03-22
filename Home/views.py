@@ -110,7 +110,6 @@ def newPaginationNumber(request):
 
 def setMobile(request):
     if request.is_ajax():
-        print('mobile')
         user.isMobile = True
         user.paginationNumber = 4
         return HttpResponse(json.dumps({}))

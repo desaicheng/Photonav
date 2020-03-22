@@ -131,7 +131,6 @@
             }
         }
         async function getLandmarks(usersLatitude, usersLongitude, radius, page) {
-            console.info(usersLatitude, usersLongitude, radius, page, numOfPages)
             return $.ajax({
                 type: "GET",
                 url: '/ajax/getLandmarks',
@@ -156,6 +155,10 @@
         }
         async function setMobile() {
             curPagination = 4;
+            document.getElementById("paginator-menu").innerHTML += `<a id="4-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(4,false)"
+            href="#">4</a>
+        <a id="8-page" class="dropdown-item paginator-selection" onclick="newPagination(8,false)" href="#">8</a>
+        <a id="12-page" class="dropdown-item paginator-selection" onclick="newPagination(12,false)" href="#">12</a>`;
             return $.ajax({
                 type: "GET",
                 url: '/ajax/setMobile',
@@ -171,6 +174,13 @@
                 }
             });
         }
+        async function setDesktop() {
+            document.getElementById("paginator-menu").innerHTML += `<a id="12-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(12,false)"
+            href="#">12</a>
+        <a id="24-page" class="dropdown-item paginator-selection" onclick="newPagination(24,false)" href="#">24</a>
+        <a id="48-page" class="dropdown-item paginator-selection" onclick="newPagination(48,false)" href="#">48</a>`;
+
+        }
         function main() {
             HandlebarsIntl.registerWith(Handlebars);
             // default to 12 landmarks per page on start - check for async???
@@ -180,24 +190,20 @@
                 const radius = document.getElementById("button-display-distance").value;
                 if ($(window).width() > 514) {
                     document.getElementById("card-deck").classList.add('card-deck');
+                    await setDesktop();
                 }
                 else {
                     await setMobile().catch(error => {
-                        console.info(error)
-                    });
-                }
-                getLandmarks(usersLatitude, usersLongitude, radius, 1).then(result => {
-                    newPagination(curPagination, true).then(result => {
-                        console.info(numOfPages)
-                        changePage(1).catch(error => {
-                            console.info(error);
-                        })
-                    }).catch(error => {
                         console.info(error);
                     });
-                }).catch(error => {
+                }
+                await getLandmarks(usersLatitude, usersLongitude, radius, 1).catch(error => {
                     console.info(error);
-                });
+                })
+                await newPagination(curPagination, true).catch(error => {
+                    console.info(error);
+                })
+                changePage(1);
 
                 $(document).ready(function (directions) {
                     $('[data-toggle="popover"]').popover();
