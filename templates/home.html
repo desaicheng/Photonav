@@ -105,6 +105,7 @@
         var curPagination = 12;
         var curSort = "distance";
         window.onload = main;
+        // add landmarks to page
         function addCards(spots) {
             document.getElementById("cards").innerHTML = "";
             const photoSpotTemplate = `
@@ -131,6 +132,7 @@
                 ).innerHTML += renderPhotoSpotTemplate(spot);
             }
         }
+        // retrieve landmarks for current page
         async function getLandmarks(usersLatitude, usersLongitude, radius, page) {
             return $.ajax({
                 type: "GET",
@@ -154,6 +156,7 @@
 
             });
         }
+        // set screen to accomodate mobile user
         async function setMobile() {
             curPagination = 4;
             document.getElementById("paginator-menu").innerHTML += `<a id="4-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(4,false)"
@@ -175,6 +178,7 @@
                 }
             });
         }
+        // set screen to accomodate Desktop user
         async function setDesktop() {
             document.getElementById("paginator-menu").innerHTML += `<a id="12-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(12,false)"
             href="#">12</a>
@@ -184,7 +188,6 @@
         }
         function main() {
             HandlebarsIntl.registerWith(Handlebars);
-            // default to 12 landmarks per page on start - check for async???
             async function locationSuccess(position, data) {
                 const usersLatitude = position.coords.latitude;
                 const usersLongitude = position.coords.longitude;
