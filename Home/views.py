@@ -10,16 +10,25 @@ import math
 
 # photo = apps.get_model('Landmarks', 'photo')
 
+# user's information
+
 
 class userInfo:
     def __init__(self):
+        # info on all landmarks currently considered by user
         self.data = []
+        # user latitude
         self.userLatitude = "-75.2509766"
+        # user longitude
         self.userLongitude = "-0.071389"
+        # landmarks per page
         self.paginationNumber = 12
+        # criteria in which landmarks are sorted
         self.sortType = 'Distance'
+        # radius in which landmarks are displayed
         self.radius = 1000000
-        self.pageNum = 1
+        # is the user using a mobile device
+        self.isMobile = False
 
 
 user = userInfo()
@@ -85,14 +94,29 @@ def getLandmarkInfo(request):
 def newPaginationNumber(request):
     if request.is_ajax():
         user.paginationNumber = int(request.GET.get('num', 12))
-        user.paginationNumber = 1
+        # user.paginationNumber = 1
+        # print(len(user.data))
         numOfPages = math.ceil(len(user.data)/user.paginationNumber)
         ret = {
-            "numOfPages": numOfPages,
+            "numOfPages": numOfPages
         }
         return HttpResponse(json.dumps(ret))
     else:
         raise Exception('Invaid Request')
+
+
+# set to Mobile
+
+
+def setMobile(request):
+    if request.is_ajax():
+        print('mobile')
+        user.isMobile = True
+        user.paginationNumber = 4
+        return HttpResponse(json.dumps({}))
+    else:
+        raise Exception('Invaid Request')
+
 
 # sort landmarks by criteria
 

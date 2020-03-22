@@ -102,6 +102,7 @@
     {% verbatim %}
     <script>
         var numOfPages = 10;
+        var curPagination = 12;
         window.onload = main;
         function addCards(spots) {
             document.getElementById("cards").innerHTML = "";
@@ -153,52 +154,75 @@
 
             });
         }
+        async function setMobile() {
+            curPagination = 4;
+            return $.ajax({
+                type: "GET",
+                url: '/ajax/setMobile',
+                dataType: 'json',
+                async: false,
+                data: {},
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+                success: function (response) {
+
+                }
+            });
+        }
         function main() {
             HandlebarsIntl.registerWith(Handlebars);
             // default to 12 landmarks per page on start - check for async???
-            newPagination(12, true).then(result => {
-
-                function locationSuccess(position, data) {
-                    const usersLatitude = position.coords.latitude;
-                    const usersLongitude = position.coords.longitude;
-                    const radius = document.getElementById("button-display-distance").value;
-                    if ($(window).width() > 514) {
-                        document.getElementById("card-deck").classList.add('card-deck');
-                    }
-                    getLandmarks(usersLatitude, usersLongitude, radius, 1).catch(error => {
-                        console.info(error);
-                    });
-                    changePage(1).catch(error => {
-                        console.info(error);
-                    })
-
-                    $(document).ready(function (directions) {
-                        $('[data-toggle="popover"]').popover();
+            async function locationSuccess(position, data) {
+                const usersLatitude = position.coords.latitude;
+                const usersLongitude = position.coords.longitude;
+                const radius = document.getElementById("button-display-distance").value;
+                if ($(window).width() > 514) {
+                    document.getElementById("card-deck").classList.add('card-deck');
+                }
+                else {
+                    await setMobile().catch(error => {
+                        console.info(error)
                     });
                 }
-                function locationError() {
-                    document.getElementById("location-warning").innerHTML = `
+                getLandmarks(usersLatitude, usersLongitude, radius, 1).then(result => {
+                    newPagination(curPagination, true).then(result => {
+                        console.info(numOfPages)
+                        changePage(1).catch(error => {
+                            console.info(error);
+                        })
+                    }).catch(error => {
+                        console.info(error);
+                    });
+                }).catch(error => {
+                    console.info(error);
+                });
+
+                $(document).ready(function (directions) {
+                    $('[data-toggle="popover"]').popover();
+                });
+            }
+            function locationError() {
+                document.getElementById("location-warning").innerHTML = `
                 <div class="alert alert-danger" role="alert">
                   Unable to access your location. Enable location to see which photo spots are near you!
                 </div>
               `;
-                }
+            }
 
-                if (!navigator.geolocation) {
-                    document.getElementById("location-warning").innerHTML = `
+            if (!navigator.geolocation) {
+                document.getElementById("location-warning").innerHTML = `
                 <div class="alert alert-danger" role="alert">
                   Enable location to see which photo spots are near you!
                 </div>
               `;
-                } else {
-                    navigator.geolocation.getCurrentPosition(
-                        locationSuccess,
-                        locationError
-                    );
-                }
-            }).catch(error => {
-                console.info(error);
-            });
+            } else {
+                navigator.geolocation.getCurrentPosition(
+                    locationSuccess,
+                    locationError
+                );
+            }
         }
     </script>
     {% endverbatim %}

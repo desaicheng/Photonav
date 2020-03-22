@@ -1,6 +1,6 @@
 <script>
     async function newPagination(num, isInit) {
-        document.getElementById("pagination-button").innerText = String(num);
+        curPagination = num;
         return $.ajax({
             type: "GET",
             url: '/ajax/newPaginationNumber',
@@ -15,11 +15,16 @@
             },
             // test
             success: function (info) {
+                console.info(info.numOfPages);
                 numOfPages = info.numOfPages;
                 if (isInit == false) {
+                    document.getElementById("pagination-button").innerText = String(num);
                     getLandmarks('skip', 'skip', -1, 1).then(result => {
                     }).catch(error => {
                         console.info(error);
+                    });
+                    changePage(1).catch(error => {
+                        console.info(error)
                     });
                 }
             }
