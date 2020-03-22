@@ -27,11 +27,12 @@
     };
     // new criteria to sort landmarks
     function newSort(type) {
-        document.getElementById(`${curSort}-button`).classList.remove("disabled");
-        document.getElementById("button-display-sort").innerText = type;
-        curSort = type.toLowerCase();
-        document.getElementById(`${curSort}-button`).classList.add("disabled");
-        sortLandmarks(type).catch(error => {
+        sortLandmarks(type).then(result => {
+            document.getElementById(`${curSort}-button`).classList.remove("disabled");
+            document.getElementById("button-display-sort").innerText = type;
+            curSort = type.toLowerCase();
+            document.getElementById(`${curSort}-button`).classList.add("disabled");
+        }).catch(error => {
             console.info(error);
         })
     }
