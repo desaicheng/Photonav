@@ -184,7 +184,20 @@
             href="#">12</a>
         <a id="24-page" class="dropdown-item paginator-selection" onclick="newPagination(24,false)" href="#">24</a>
         <a id="48-page" class="dropdown-item paginator-selection" onclick="newPagination(48,false)" href="#">48</a>`;
+            return $.ajax({
+                type: "GET",
+                url: '/ajax/setDesktop',
+                dataType: 'json',
+                async: false,
+                data: {},
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+                success: function (response) {
 
+                }
+            });
         }
         function main() {
             HandlebarsIntl.registerWith(Handlebars);
@@ -194,7 +207,9 @@
                 const radius = document.getElementById("button-display-distance").value;
                 if ($(window).width() > 514) {
                     document.getElementById("card-deck").classList.add('card-deck');
-                    await setDesktop();
+                    await setDesktop().catch(error => {
+                        console.info(error);
+                    });
                 }
                 else {
                     await setMobile().catch(error => {

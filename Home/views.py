@@ -33,6 +33,18 @@ class userInfo:
 
 user = userInfo()
 
+# set user back to default
+
+
+def defaultUser():
+    user.data = []
+    user.userLatitude = "-75.2509766"
+    user.userLongitude = "-0.071389"
+    user.paginationNumber = 12
+    user.sortType = 'Distance'
+    user.radius = 1000000
+    user.isMobile = False
+    return
 
 # get set of landmarks
 
@@ -102,12 +114,22 @@ def newPaginationNumber(request):
     else:
         raise Exception('Invaid Request')
 
+# set to Desktop
+
+
+def setDesktop(request):
+    if request.is_ajax():
+        defaultUser()
+        return HttpResponse(json.dumps({}))
+    else:
+        raise Exception('Invaid Request')
 
 # set to Mobile
 
 
 def setMobile(request):
     if request.is_ajax():
+        defaultUser()
         user.isMobile = True
         user.paginationNumber = 4
         return HttpResponse(json.dumps({}))
