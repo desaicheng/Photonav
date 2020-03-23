@@ -17,6 +17,7 @@
                 // console.info(spots)
                 // addCards(spots);
                 getLandmarks('skip', 'skip', -1, 1).then(result => {
+                    console.info(result[6]);
                 }).catch(error => {
                     console.info(error);
                 });

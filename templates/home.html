@@ -41,6 +41,7 @@
 
     <!-- Styling CSS -->
     <link rel="stylesheet" , type="text/css" href="{% static 'css/homeCss.css' %}">
+    <link rel="shortcut icon" href="">
     <title>Photonav</title>
 </head>
 
@@ -151,7 +152,7 @@
                 },
                 success: function (spots) {
                     curSpots = spots;
-                    addCards(spots);
+                    addCards(spots.slice(0, 6));
                 }
 
             });
@@ -200,7 +201,6 @@
             });
         }
         function main() {
-            console.info('refreshed');
             HandlebarsIntl.registerWith(Handlebars);
             async function locationSuccess(position, data) {
                 const usersLatitude = position.coords.latitude;

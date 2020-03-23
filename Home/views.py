@@ -58,6 +58,7 @@ def getLandmarks(request):
         user.radius = float(request.GET.get('radius', 100000)) if int(request.GET.get(
             'radius', 100000)) != -1 else user.radius
         # page number
+        print(user.userLongitude, user.userLatitude)
         page = int(request.GET.get('page', 1))
         start = (page-1)*user.paginationNumber
         end = page*user.paginationNumber
@@ -66,6 +67,11 @@ def getLandmarks(request):
         user.data = getPhotos(queryStatement, user.userLatitude,
                               user.userLongitude, user.radius)
         sort(request)
+        user.data.append({
+            "longit": user.userLongitude,
+            "latit": user.userLatitude
+        })
+        print(user.userLongitude, user.userLatitude, user.data)
         return HttpResponse(json.dumps(user.data[start:end]))
     else:
         raise Exception('Invaid Request')
