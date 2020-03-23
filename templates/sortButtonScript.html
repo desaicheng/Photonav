@@ -15,13 +15,14 @@
             },
             success: function (spots) {
                 // console.info(spots)
-                // addCards(spots);
-                getLandmarks('skip', 'skip', -1, 1).then(result => {
-                    console.info(result[6]);
-                }).catch(error => {
-                    console.info(error);
-                });
+                addCards(spots);
                 changePage(1);
+
+                // getLandmarks('skip', 'skip', -1, 1).then(result => {
+                // }).catch(error => {
+                //     console.info(error);
+                // });
+                // changePage(1);
             }
 
         });
