@@ -46,6 +46,7 @@
 </head>
 
 <body>
+    <!-- <div id="body-background-image"></div> -->
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT5WG67" height="0" width="0"
@@ -73,12 +74,15 @@
                 <div id="location-info"></div>
             </div>
         </div>
-        <div class="flex-container">
-            {% include 'distanceFilter.html' %}
-            {% include 'sortButton.html' %}
-        </div>
-        <div id="card-deck">
-            <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
+        <div class="row">
+            {% include 'displayOptions.html' %}
+            <div class="flex-container col-lg-3 col-md-3">
+                {% include 'distanceFilter.html' %}
+                {% include 'sortButton.html' %}
+            </div>
+            <div id="card-deck" class="col-lg-9 col-md-9">
+                <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
+            </div>
         </div>
         {% include 'landmarkModal.html' %}
         {% include 'landmarkPictureModal.html' %}
@@ -105,12 +109,15 @@
         var numOfPages = 10;
         var curPagination = 12;
         var curSort = "distance";
+        var curRadius = 1000000;
+        var usersLatitude = -75.2509766;
+        var usersLongitude = -0.071389;
         window.onload = main;
         // add landmarks to page
         function addCards(spots) {
             document.getElementById("cards").innerHTML = "";
             const photoSpotTemplate = `
-                <div class="col-md-4 col-sm-6 col-lg-3 col-xs-12 card-container" style = "margin-top:30px">
+                <div class="col-md-12 col-sm-12 col-lg-6 col-xs-6 card-container" style = "margin-top:30px">
                     <div class="card">
                       <a type="button" id="image-modal" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}">
                         <img src={{imgSrc}} style="width:100%;object-fit:fill">
@@ -203,9 +210,9 @@
         function main() {
             HandlebarsIntl.registerWith(Handlebars);
             async function locationSuccess(position, data) {
-                const usersLatitude = position.coords.latitude;
-                const usersLongitude = position.coords.longitude;
-                const radius = document.getElementById("button-display-distance").value;
+                usersLatitude = position.coords.latitude;
+                usersLongitude = position.coords.longitude;
+                const radius = curRadius;
                 if ($(window).width() > 514) {
                     document.getElementById("card-deck").classList.add('card-deck');
                     await setDesktop().catch(error => {

@@ -14,15 +14,16 @@
                 alert(thrownError);
             },
             success: function (spots) {
-                console.info(spots)
-                addCards(spots);
-                changePage(1);
-
-                // getLandmarks('skip', 'skip', -1, 1).then(result => {
-                // }).catch(error => {
-                //     console.info(error);
-                // });
+                // console.info(spots)
+                // addCards(spots);
                 // changePage(1);
+
+                getLandmarks(usersLatitude, usersLongitude, -1, 1).then(result => {
+                    console.info(result);
+                }).catch(error => {
+                    console.info(error);
+                });
+                changePage(1);
             }
 
         });
@@ -30,18 +31,18 @@
     // new criteria to sort landmarks
     function newSort(type) {
         sortLandmarks(type).then(result => {
-            document.getElementById(`${curSort}-button`).classList.remove("disabled");
+            document.getElementById(`${curSort}-option`).classList.remove("selected");
             document.getElementById("button-display-sort").innerText = type;
             curSort = type.toLowerCase();
-            document.getElementById(`${curSort}-button`).classList.add("disabled");
+            document.getElementById(`${curSort}-option`).classList.add("selected");
         }).catch(error => {
             console.info(error);
         })
     }
-    document.getElementById("name-button").onclick = function sortName() {
+    document.getElementById("name-option").onclick = function sortName() {
         newSort('Name');
     }
-    document.getElementById("distance-button").onclick = function sortDistance() {
+    document.getElementById("distance-option").onclick = function sortDistance() {
         newSort('Distance');
     }
 </script>

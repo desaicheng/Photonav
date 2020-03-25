@@ -2,11 +2,19 @@ body{
     min-height: 100vh;
     background: url("../images/backgroundImages/sfBeach1.jpg");
     background-size: cover;
+    background-color: rgba(255, 255, 255, 0.4);
+    background-blend-mode: lighten;
+
 }
 .lead{
     text-align:center;
     font-size:20px;
     color:rgb(255, 187, 0);
+}
+.carousel-inner{
+    position: relative;
+    left:calc(-50vw + 50%);
+    width:100vw;
 }
 div.scrollmenu {
     overflow: auto;
@@ -21,8 +29,7 @@ div.scrollmenu > div {
 }
 .card{
     border:solid;
-    border-width: 5px;
-    border-color:rgb(20,110,20);
+    border-width: 1px;
     width: 100%; 
 }
 .card-body{
@@ -31,6 +38,10 @@ div.scrollmenu > div {
 #cards{
     margin-top: 30px;
 }
+.option-class > .class-header{
+    text-align: center;
+    font-weight: 300;
+}
 .flex-container{
     display:flex;
     justify-content: center;
@@ -38,6 +49,13 @@ div.scrollmenu > div {
 }
 .button-container{
     height:20px
+}
+#display-options > .divider{
+    height:2px;
+    width:100%;
+    background-color: black;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 .flex-item{
     display:inline-block;
@@ -48,7 +66,7 @@ div.scrollmenu > div {
     overflow-y:hidden;
 }
 #landmark-modal{
-    /* z-index: 99; */
+
 }
 #landmark-picture-modal{
     
@@ -60,6 +78,40 @@ div.scrollmenu > div {
 .modal{
     overflow:auto;
 }
+.option-class > .option-item{
+    cursor: pointer;;
+}
+.option-class > .selected{
+    font-weight: 600;
+    cursor:default;
+    color: blue;
+}
+#options-bar{
+    position: relative; 
+    overflow: visible; 
+    box-sizing: border-box; 
+    min-height: 1px;
+    background-color: white;
+    padding:20px;
+    border:solid;
+    border-width: 1px;
+    
+}
+#options-bar > #options-toggle{
+    width:100%;
+    cursor: pointer;
+    font-weight: 600;
+}
+/* #options-bar > #options-toggle::before{
+    font-family: "ElegantIcons";
+    content: "\66";
+    font-size: 1.625rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 1;
+    font-weight: normal;
+} */
 #paginator-container{
     margin-top: 20px;
     display: inline-block;
@@ -90,6 +142,9 @@ div.scrollmenu > div {
     .card > a > img{
         height:100%;
         object-fit: cover;
+    }
+    #options-bar{
+        position:sticky;
     }
   }
 /* when window size is small */

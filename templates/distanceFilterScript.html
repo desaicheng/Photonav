@@ -1,20 +1,33 @@
 <script>
     function newRadius(radius) {
+        if (curRadius == 1000000) {
+            document.getElementById("all-radius").classList.remove("selected");
+        }
+        else {
+            document.getElementById(`${curRadius}-radius`).classList.remove("selected");
+        }
+        curRadius = radius;
+        if (curRadius == 1000000) {
+            document.getElementById("all-radius").classList.add("selected");
+        }
+        else {
+            document.getElementById(`${curRadius}-radius`).classList.add("selected");
+        }
         document.getElementById("button-display-distance").value = radius;
         if (radius < 1000000) document.getElementById("button-display-distance").innerText = String(radius) + " miles";
         else document.getElementById("button-display-distance").innerText = "All";
         main()
     }
-    document.getElementById("10-button").onclick = function radiusTen() {
+    document.getElementById("10-radius").onclick = function radiusTen() {
         newRadius(10);
     }
-    document.getElementById("30-button").onclick = function radiusTen() {
+    document.getElementById("30-radius").onclick = function radiusTen() {
         newRadius(30);
     }
-    document.getElementById("60-button").onclick = function radiusTen() {
+    document.getElementById("60-radius").onclick = function radiusTen() {
         newRadius(60);
     }
-    document.getElementById("all-button").onclick = function radiusTen() {
+    document.getElementById("all-radius").onclick = function radiusTen() {
         newRadius(1000000);
     }
 </script>
