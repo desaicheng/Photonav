@@ -1,13 +1,13 @@
 <script>
     // update user sort criteria and then call getLandmarks
     function sortLandmarks(type) {
-        while (ajaxCalling == true) {
-            setTimeout(function () {
-                console.info('running');
-                return;
-            }, 300);
-        }
-        ajaxCalling = true;
+        // while (ajaxCalling == true) {
+        //     setTimeout(function () {
+        //         console.info('running');
+        //         return;
+        //     }, 300);
+        // }
+        // ajaxCalling = true;
         return $.ajax({
             type: "GET",
             url: '/ajax/sortBy',
@@ -21,7 +21,7 @@
                 alert(thrownError);
             },
             success: function (spots) {
-                ajaxCalling = false;
+                // ajaxCalling = false;
                 console.info(spots)
                 addCards(spots);
                 changePage(1);
