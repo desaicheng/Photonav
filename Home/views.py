@@ -141,7 +141,7 @@ def setMobile(request):
 
 
 def sort(request):
-    # tempData = user.data[:]
+    tempData = user.data[:]
     if user.sortType == 'Name':
         def Name(elem):
             return elem['neighborhood']
@@ -150,7 +150,7 @@ def sort(request):
         def Distance(elem):
             return elem['distanceAway']
         user.data.sort(key=Distance)
-    # user.data = tempData[:]
+    user.data = tempData
 
 # call sort function
 
@@ -160,7 +160,8 @@ def sortBy(request):
         user.sortType = request.GET.get('type', None)
         print(user.sortType)
         sort(request)
-        return HttpResponse(json.dumps(user.data[:user.paginationNumber]))
+        tempPaginationNumber = user.paginationNumber
+        return HttpResponse(json.dumps(user.data[:tempPaginationNumber]))
         # return HttpResponse(json.dumps({}))
     else:
         raise Exception('Invaid Request')

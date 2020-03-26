@@ -2,7 +2,10 @@
     // update user sort criteria and then call getLandmarks
     function sortLandmarks(type) {
         while (ajaxCalling == true) {
-            setTimeout(function () { return; }, 300);
+            setTimeout(function () {
+                console.info('running');
+                return;
+            }, 300);
         }
         ajaxCalling = true;
         return $.ajax({
