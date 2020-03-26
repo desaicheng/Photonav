@@ -150,7 +150,7 @@ def sort(request):
         def Distance(elem):
             return elem['distanceAway']
         user.data.sort(key=Distance)
-    user.data = tempData
+    user.data = tempData[:]
 
 # call sort function
 
