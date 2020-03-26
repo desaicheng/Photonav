@@ -141,14 +141,16 @@ def setMobile(request):
 
 
 def sort(request):
+    tempData = user.data
     if user.sortType == 'Name':
         def Name(elem):
             return elem['neighborhood']
-        user.data.sort(key=Name)
+        tempData.sort(key=Name)
     elif user.sortType == 'Distance':
         def Distance(elem):
             return elem['distanceAway']
-        user.data.sort(key=Distance)
+        tempData.sort(key=Distance)
+    user.data = tempData
 
 # call sort function
 
