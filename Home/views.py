@@ -160,8 +160,7 @@ def sortBy(request):
         user.sortType = request.GET.get('type', None)
         print(user.sortType)
         sort(request)
-        tempPaginationNumber = user.paginationNumber
-        return HttpResponse(json.dumps(user.data[:tempPaginationNumber]))
+        return HttpResponse(json.dumps(user.data[:user.paginationNumber]))
         # return HttpResponse(json.dumps({}))
     else:
         raise Exception('Invaid Request')
