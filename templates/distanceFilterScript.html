@@ -13,9 +13,7 @@
         else {
             document.getElementById(`${curRadius}-radius`).classList.add("selected");
         }
-        document.getElementById("button-display-distance").value = radius;
-        if (radius < 1000000) document.getElementById("button-display-distance").innerText = String(radius) + " miles";
-        else document.getElementById("button-display-distance").innerText = "All";
+        // document.getElementById("button-display-distance").value = radius;
         main()
     }
     document.getElementById("10-radius").onclick = function radiusTen() {

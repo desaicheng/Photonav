@@ -76,10 +76,10 @@
         </div>
         <div class="row">
             {% include 'displayOptions.html' %}
-            <div class="flex-container col-lg-3 col-md-3">
+            <!-- <div class="flex-container col-lg-3 col-md-3">
                 {% include 'distanceFilter.html' %}
                 {% include 'sortButton.html' %}
-            </div>
+            </div> -->
             <div id="card-deck" class="col-lg-9 col-md-9">
                 <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
             </div>
@@ -167,7 +167,10 @@
         // set screen to accomodate mobile user
         async function setMobile() {
             curPagination = 4;
-            document.getElementById("paginator-menu").innerHTML += `<a id="4-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(4,false)"
+            document.getElementById("paginator-menu").innerHTML = "";
+            document.getElementById("paginator-menu").innerHTML += `
+            <a id="paginator-menu-header" class="dropdown-item disabled">Landmarks Per Page</a>
+            <a id="4-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(4,false)"
             href="#">4</a>
         <a id="8-page" class="dropdown-item paginator-selection" onclick="newPagination(8,false)" href="#">8</a>
         <a id="12-page" class="dropdown-item paginator-selection" onclick="newPagination(12,false)" href="#">12</a>`;
@@ -188,7 +191,10 @@
         }
         // set screen to accomodate Desktop user
         async function setDesktop() {
-            document.getElementById("paginator-menu").innerHTML += `<a id="12-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(12,false)"
+            document.getElementById("paginator-menu").innerHTML = "";
+            document.getElementById("paginator-menu").innerHTML += `
+            <a id="paginator-menu-header" class="dropdown-item disabled">Landmarks Per Page</a>
+            <a id="12-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(12,false)"
             href="#">12</a>
         <a id="24-page" class="dropdown-item paginator-selection" onclick="newPagination(24,false)" href="#">24</a>
         <a id="48-page" class="dropdown-item paginator-selection" onclick="newPagination(48,false)" href="#">48</a>`;

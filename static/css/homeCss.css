@@ -95,6 +95,9 @@ div.scrollmenu > div {
     padding:20px;
     border:solid;
     border-width: 1px;
+    height:fit-content;
+    display: inline-block;
+    width: 100%;
     
 }
 #options-bar > #options-toggle{

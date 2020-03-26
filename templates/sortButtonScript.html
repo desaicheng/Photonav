@@ -14,16 +14,16 @@
                 alert(thrownError);
             },
             success: function (spots) {
-                // console.info(spots)
-                // addCards(spots);
-                // changePage(1);
-
-                getLandmarks(usersLatitude, usersLongitude, -1, 1).then(result => {
-                    console.info(result);
-                }).catch(error => {
-                    console.info(error);
-                });
+                console.info(spots)
+                addCards(spots);
                 changePage(1);
+
+                // getLandmarks(usersLatitude, usersLongitude, -1, 1).then(result => {
+                //     console.info(result);
+                // }).catch(error => {
+                //     console.info(error);
+                // });
+                // changePage(1);
             }
 
         });
@@ -32,7 +32,6 @@
     function newSort(type) {
         sortLandmarks(type).then(result => {
             document.getElementById(`${curSort}-option`).classList.remove("selected");
-            document.getElementById("button-display-sort").innerText = type;
             curSort = type.toLowerCase();
             document.getElementById(`${curSort}-option`).classList.add("selected");
         }).catch(error => {
