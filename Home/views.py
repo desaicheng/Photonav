@@ -144,6 +144,7 @@ def sortBy(request):
         request.session['sortType'] = request.GET.get('type', None)
         data = request.session['data']
         data = sort(request, data)
+        print(data)
         paginationNumber = request.session['paginationNumber']
         return HttpResponse(json.dumps(data[:paginationNumber]))
         # return HttpResponse(json.dumps({}))
