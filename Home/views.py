@@ -121,6 +121,7 @@ def newPaginationNumber(request):
 def setDesktop(request):
     if request.is_ajax():
         defaultUser()
+        request.session['paginationNumber'] = 15
         return HttpResponse(json.dumps({}))
     else:
         raise Exception('Invaid Request')
@@ -160,6 +161,7 @@ def sort(request):
 def sortBy(request):
     global user
     if request.is_ajax():
+        print(request.session['paginationNumber'])
         user.sortType = request.GET.get('type', None)
         print(user.sortType, user.data, user.paginationNumber)
         sort(request)
