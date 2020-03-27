@@ -161,7 +161,7 @@ def sort(request):
 def sortBy(request):
     global user
     if request.is_ajax():
-        print(request.session['paginationNumber'])
+        print(request.session.keys(), request.session['paginationNumber'])
         user.sortType = request.GET.get('type', None)
         print(user.sortType, user.data, user.paginationNumber)
         sort(request)
