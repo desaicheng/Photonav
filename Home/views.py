@@ -20,7 +20,8 @@ def defaultSession(request):
     request.session['sortType'] = 'Distance'
     request.session['radius'] = 1000000
     request.session['isMobile'] = False
-    del request.session['init']
+    if 'init' in request.session:
+        del request.session['init']
     return
 
 # get set of landmarks
