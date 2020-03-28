@@ -112,6 +112,10 @@
         var curRadius = 1000000;
         var usersLatitude = -75.2509766;
         var usersLongitude = -0.071389;
+        var tenMiles = -1;
+        var thirtyMiles = -1;
+        var sixtyMiles = -1;
+        var allDistance = -1;
         // var ajaxCalling = false;
         window.onload = main;
         // add landmarks to page
@@ -120,7 +124,7 @@
             const photoSpotTemplate = `
                 <div class="col-md-12 col-sm-12 col-lg-6 col-xs-6 card-container" style = "margin-top:30px">
                     <div class="card">
-                      <a type="button" id="image-modal" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}">
+                      <a type="button" id="image-modal" class="MainNavText" data-toggle="modal" href="#landmark-modal" data-landmark="{{neighborhood}}" data-src="{{imgSrc}}">
                         <img src={{imgSrc}} style="width:100%;object-fit:fill">
                       </a>
                       <div class="card-body" style="height:30%;text-align:center;">
@@ -158,9 +162,19 @@
                     alert(xhr.status);
                     alert(thrownError);
                 },
-                success: function (spots) {
-                    curSpots = spots;
-                    addCards(spots);
+                success: function (response) {
+                    curSpots = response['data'];
+                    if (tenMiles == -1) {
+                        tenMiles = response['10-miles'];
+                        thirtyMiles = response['30-miles'];
+                        sixtyMiles = response['60-miles'];
+                        allDistance = response['all'];
+                        document.getElementById("10-radius").innerText += `  (${tenMiles})`;
+                        document.getElementById("30-radius").innerText += `  (${thirtyMiles})`;
+                        document.getElementById("60-radius").innerText += `  (${sixtyMiles})`;
+                        document.getElementById("all-radius").innerText += `  (${allDistance})`;
+                    }
+                    addCards(response['data']);
                 }
 
             });
@@ -215,6 +229,8 @@
             });
         }
         function main() {
+            curRadius = 1000000;
+            tenMiles = -1;
             HandlebarsIntl.registerWith(Handlebars);
             async function locationSuccess(position, data) {
                 usersLatitude = position.coords.latitude;

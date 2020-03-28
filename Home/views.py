@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.http import HttpResponse, JsonResponse
 from django.apps import apps
 from Landmarks.functions import getPhotos
-from commonFunctions.functions import fixString
+from commonFunctions.functions import fixString, searchIndex
 from django.db import connection
 from haversine import haversine, Unit
 import json
@@ -20,6 +20,7 @@ def defaultSession(request):
     request.session['sortType'] = 'Distance'
     request.session['radius'] = 1000000
     request.session['isMobile'] = False
+    del request.session['init']
     return
 
 # get set of landmarks
@@ -46,8 +47,16 @@ def getLandmarks(request):
         request.session['data'] = getPhotos(queryStatement, userLatitude,
                                             userLongitude, radius)
         data = request.session['data']
+        ret = {}
+        if 'init' not in request.session:
+            request.session['init'] = True
+            ret['10-miles'] = searchIndex(data, 10, 'distanceAway')
+            ret['30-miles'] = searchIndex(data, 30, 'distanceAway')
+            ret['60-miles'] = searchIndex(data, 60, 'distanceAway')
+            ret['all'] = len(data)
         data = sort(request, data)
-        return HttpResponse(json.dumps(data[start:end]))
+        ret['data'] = data[start:end]
+        return HttpResponse(json.dumps(ret))
     else:
         raise Exception('Invaid Request')
 
@@ -60,6 +69,9 @@ def getLandmarkInfo(request):
         neighborhood = fixString(neighborhood)
         queryStatement = 'SELECT * FROM Landmarks_photo WHERE landmark_id=\'{}\''.format(
             neighborhood)
+        print(queryStatement)
+        userLatitude = request.session['latitude']
+        userLongitude = request.session['longitude']
         try:
             with connection.cursor() as cursor:
                 cursor.execute(queryStatement)
@@ -69,7 +81,7 @@ def getLandmarkInfo(request):
         photosInfo = []
         for photo in photos:
             distanceAway = haversine(
-                (float(user.userLatitude), float(user.userLongitude)), (photo[4], photo[3]), unit="mi")
+                (float(userLatitude), float(userLongitude)), (photo[4], photo[3]), unit="mi")
             curPhoto = {
                 "imgSrc": "../static/images/{}/{}".format(photo[5].replace(" ", ""), photo[1]),
                 "distanceAway": distanceAway,

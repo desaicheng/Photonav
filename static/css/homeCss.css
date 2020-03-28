@@ -1,9 +1,9 @@
 body{
     min-height: 100vh;
-    background: url("../images/backgroundImages/sfBeach1.jpg");
-    background-size: cover;
-    background-color: rgba(255, 255, 255, 0.4);
-    background-blend-mode: lighten;
+    /* background: url("../images/backgroundImages/sfBeach1.jpg");
+    background-size: cover; */
+    background-color: rgba(15, 15, 15, 0.096);
+    /* background-blend-mode: lighten; */
 
 }
 .lead{
@@ -87,19 +87,22 @@ div.scrollmenu > div {
     color: blue;
 }
 #options-bar{
-    position: relative; 
-    overflow: visible; 
-    box-sizing: border-box; 
-    min-height: 1px;
     background-color: white;
     padding:20px;
     border:solid;
     border-width: 1px;
+}
+#options-bar-container{
+    position: relative; 
+    overflow: visible; 
+    box-sizing: border-box; 
+    min-height: 1px;
     height:fit-content;
     display: inline-block;
     width: 100%;
     
 }
+
 #options-bar > #options-toggle{
     width:100%;
     cursor: pointer;

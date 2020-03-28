@@ -4,6 +4,7 @@ def fixString(string):
         len(stringArr)) if stringArr[i] == '\'']
     for i in range(len(badIndexes)-1, -1, -1):
         stringArr.insert(badIndexes[i], "\\")
+    print(badIndexes, stringArr, "\\hi")
     return ''.join(stringArr)
 
 
