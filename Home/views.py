@@ -156,6 +156,7 @@ def sortBy(request):
     if request.is_ajax():
         request.session['sortType'] = request.GET.get('type', None)
         data = request.session['data']
+        print(data)
         data = sort(request, data)
         # print(data)
         paginationNumber = request.session['paginationNumber']
