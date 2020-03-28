@@ -3,7 +3,7 @@ def fixString(string):
     badIndexes = [i for i in range(
         len(stringArr)) if stringArr[i] == '\'']
     for i in range(len(badIndexes)-1, -1, -1):
-        stringArr.insert(badIndexes[i], "\\")
+        stringArr.insert(badIndexes[i], "\'")
     print(badIndexes, stringArr, "\\hi")
     return ''.join(stringArr)
 

@@ -70,7 +70,7 @@ def getLandmarkInfo(request):
         neighborhood = fixString(neighborhood)
         queryStatement = 'SELECT * FROM Landmarks_photo WHERE landmark_id=\'{}\''.format(
             neighborhood)
-        print(queryStatement)
+        print(queryStatement, len(queryStatement))
         userLatitude = request.session['latitude']
         userLongitude = request.session['longitude']
         try:
@@ -89,6 +89,7 @@ def getLandmarkInfo(request):
                 "directionsUrl": photo[2]
             }
             photosInfo.append(curPhoto)
+        print(photosInfo)
         return HttpResponse(json.dumps(photosInfo))
     else:
         raise Exception('Invaid Request')
@@ -116,7 +117,6 @@ def newPaginationNumber(request):
 def setDesktop(request):
     if request.is_ajax():
         defaultSession(request)
-        print(request.session['isMobile'])
         return HttpResponse(json.dumps({}))
     else:
         raise Exception('Invaid Request')
@@ -157,7 +157,7 @@ def sortBy(request):
         request.session['sortType'] = request.GET.get('type', None)
         data = request.session['data']
         data = sort(request, data)
-        print(data)
+        # print(data)
         paginationNumber = request.session['paginationNumber']
         return HttpResponse(json.dumps(data[:paginationNumber]))
         # return HttpResponse(json.dumps({}))

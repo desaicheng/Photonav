@@ -9,7 +9,6 @@ def getPhotos(queryStatement, userLatitude, userLongitude, radius):
         with connection.cursor() as cursor:
             cursor.execute(queryStatement)
             data = cursor.fetchall()
-            # print(data)
     except:
         raise Exception('Could not get Photos')
     spots = []
