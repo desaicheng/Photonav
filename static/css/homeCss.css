@@ -108,22 +108,15 @@ div.scrollmenu > div {
     cursor: pointer;
     font-weight: 600;
 }
-/* #options-bar > #options-toggle::before{
-    font-family: "ElegantIcons";
-    content: "\66";
-    font-size: 1.625rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    line-height: 1;
-    font-weight: normal;
-} */
+#page-navigator{
+    display: inline-flex; 
+    margin-left: 30px;
+}
 #paginator-container{
     margin-top: 20px;
     display: inline-block;
     justify-content: flex-start;
     background-color: aliceblue;
-    /* align-items: flex-start; */
 }
 #pagination-number-button{
     display: inline-flex;
@@ -152,6 +145,9 @@ div.scrollmenu > div {
     #options-bar{
         position:sticky;
     }
+    #page-navigator{
+        max-width: 120px;
+    }
   }
 /* when window size is small */
 @media only screen and (max-width: 600px) {
@@ -162,5 +158,11 @@ div.scrollmenu > div {
     main{
         padding-left: 0px;
         padding-right: 0px;
+    }
+    #page-navigator{
+        max-width: 50px;
+    }
+    #page-input::placeholder{
+        font-size: 10px;
     }
 }

@@ -70,7 +70,6 @@ def getLandmarkInfo(request):
         neighborhood = fixString(neighborhood)
         queryStatement = 'SELECT * FROM Landmarks_photo WHERE landmark_id=\'{}\''.format(
             neighborhood)
-        print(queryStatement, len(queryStatement))
         userLatitude = request.session['latitude']
         userLongitude = request.session['longitude']
         try:
@@ -89,7 +88,6 @@ def getLandmarkInfo(request):
                 "directionsUrl": photo[2]
             }
             photosInfo.append(curPhoto)
-        print(photosInfo)
         return HttpResponse(json.dumps(photosInfo))
     else:
         raise Exception('Invaid Request')
@@ -158,7 +156,6 @@ def sortBy(request):
         data = request.session['data']
         print(data)
         data = sort(request, data)
-        # print(data)
         paginationNumber = request.session['paginationNumber']
         return HttpResponse(json.dumps(data[:paginationNumber]))
         # return HttpResponse(json.dumps({}))
