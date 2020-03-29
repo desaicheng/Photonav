@@ -1,9 +1,12 @@
 <script>
     // change number of photos displayed on one page
     async function newPagination(num, isInit) {
-        document.getElementById(`${curPagination}-page`).classList.remove("disabled");
+        if (num == curPagination && isInit == false) {
+            return;
+        }
+        document.getElementById(`${curPagination}-page`).classList.remove("selected");
         curPagination = num;
-        document.getElementById(`${num}-page`).classList.add("disabled");
+        document.getElementById(`${num}-page`).classList.add("selected");
         return $.ajax({
             type: "GET",
             url: '/ajax/newPaginationNumber',
@@ -20,7 +23,6 @@
             success: function (info) {
                 numOfPages = info.numOfPages;
                 if (isInit == false) {
-                    document.getElementById("pagination-button").innerText = String(num);
                     getLandmarks('skip', 'skip', -1, 1).then(result => {
                     }).catch(error => {
                         console.info(error);
@@ -43,7 +45,7 @@
         }
         document.getElementById("page-selections").innerHTML += `<li class="page-item disabled"><a class="page-link" href="#">${pageNum}</a></li>`;
         if (pageNum < numOfPages) {
-            let nextPage = pageNum + 1
+            let nextPage = pageNum + 1;
             document.getElementById("page-selections").innerHTML += `<li class="page-item" onclick = "newPage(${nextPage})"><a class="page-link" href="#">${nextPage}</a></li>`;
         }
         if (pageNum < numOfPages - 1) {
@@ -52,7 +54,12 @@
     };
     // change to a new page
     function newPage(pageNum) {
-        getLandmarks('skip', 'skip', -1, pageNum)
+        pageNum = parseInt(pageNum, 10);
+        if (pageNum == curPage || pageNum > numOfPages) {
+            return;
+        }
+        curPage = pageNum;
+        getLandmarks('skip', 'skip', -1, pageNum);
         changePage(pageNum);
     };
 </script>

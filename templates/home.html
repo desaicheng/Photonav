@@ -116,6 +116,7 @@
         var thirtyMiles = -1;
         var sixtyMiles = -1;
         var allDistance = -1;
+        var curPage = 1;
         // var ajaxCalling = false;
         window.onload = main;
         // add landmarks to page
@@ -182,13 +183,12 @@
         // set screen to accomodate mobile user
         async function setMobile() {
             curPagination = 4;
-            document.getElementById("paginator-menu").innerHTML = "";
-            document.getElementById("paginator-menu").innerHTML += `
-            <a id="paginator-menu-header" class="dropdown-item disabled">Landmarks Per Page</a>
-            <a id="4-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(4,false)"
-            href="#">4</a>
-        <a id="8-page" class="dropdown-item paginator-selection" onclick="newPagination(8,false)" href="#">8</a>
-        <a id="12-page" class="dropdown-item paginator-selection" onclick="newPagination(12,false)" href="#">12</a>`;
+            document.getElementById("pagination-number-container").innerHTML = `<h6 class="class-header">Landmarks Per Page</h6>`;
+            document.getElementById("pagination-number-container").innerHTML += `
+            <div id="4-page" class="option-item selected" onclick="newPagination(4,false)"
+            href="#">4</div>
+        <div id="8-page" class="option-item" onclick="newPagination(8,false)" href="#">8</div>
+        <div id="12-page" class="option-item" onclick="newPagination(12,false)" href="#">12</div>`;
             return $.ajax({
                 type: "GET",
                 url: '/ajax/setMobile',
@@ -206,13 +206,12 @@
         }
         // set screen to accomodate Desktop user
         async function setDesktop() {
-            document.getElementById("paginator-menu").innerHTML = "";
-            document.getElementById("paginator-menu").innerHTML += `
-            <a id="paginator-menu-header" class="dropdown-item disabled">Landmarks Per Page</a>
-            <a id="12-page" class="dropdown-item paginator-selection disabled" onclick="newPagination(12,false)"
-            href="#">12</a>
-        <a id="24-page" class="dropdown-item paginator-selection" onclick="newPagination(24,false)" href="#">24</a>
-        <a id="48-page" class="dropdown-item paginator-selection" onclick="newPagination(48,false)" href="#">48</a>`;
+            document.getElementById("pagination-number-container").innerHTML = `<h6 class="class-header">Landmarks Per Page</h6>`;
+            document.getElementById("pagination-number-container").innerHTML += `
+            <div id="12-page" class="option-item selected" onclick="newPagination(12,false)"
+            href="#">12</div>
+        <div id="24-page" class="option-item" onclick="newPagination(24,false)" href="#">24</div>
+        <div id="48-page" class="option-item" onclick="newPagination(48,false)" href="#">48</div>`;
             return $.ajax({
                 type: "GET",
                 url: '/ajax/setDesktop',
@@ -231,6 +230,7 @@
         function main() {
             curRadius = 1000000;
             tenMiles = -1;
+            curPage = 1;
             HandlebarsIntl.registerWith(Handlebars);
             async function locationSuccess(position, data) {
                 usersLatitude = position.coords.latitude;
