@@ -33,7 +33,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" , href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -81,14 +82,17 @@
                 {% include 'sortButton.html' %}
             </div> -->
             <div id="card-deck" class="col-lg-9 col-md-9">
+                <div id="paginator-container" class="flex-container">
+                    {% include 'paginator.html' %}
+                </div>
                 <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
             </div>
         </div>
         {% include 'landmarkModal.html' %}
         {% include 'landmarkPictureModal.html' %}
-        <div id="paginator-container" class="flex-container">
+        <!-- <div id="paginator-container" class="flex-container">
             {% include 'paginator.html' %}
-        </div>
+        </div> -->
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
@@ -170,10 +174,10 @@
                         thirtyMiles = response['30-miles'];
                         sixtyMiles = response['60-miles'];
                         allDistance = response['all'];
-                        document.getElementById("10-radius").innerText += `  (${tenMiles})`;
-                        document.getElementById("30-radius").innerText += `  (${thirtyMiles})`;
-                        document.getElementById("60-radius").innerText += `  (${sixtyMiles})`;
-                        document.getElementById("all-radius").innerText += `  (${allDistance})`;
+                        document.getElementById("10-radius").innerText += `10 Miles (${tenMiles})`;
+                        document.getElementById("30-radius").innerText += `30 Miles (${thirtyMiles})`;
+                        document.getElementById("60-radius").innerText += `60 Miles (${sixtyMiles})`;
+                        document.getElementById("all-radius").innerText += `All (${allDistance})`;
                     }
                     addCards(response['data']);
                 }

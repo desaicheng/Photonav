@@ -1,9 +1,6 @@
 body{
     min-height: 100vh;
-    /* background: url("../images/backgroundImages/sfBeach1.jpg");
-    background-size: cover; */
-    background-color: rgba(15, 15, 15, 0.096);
-    /* background-blend-mode: lighten; */
+    background-color: rgba(199, 199, 199, 0.096);
 
 }
 .lead{
@@ -93,7 +90,6 @@ div.scrollmenu > div {
     border-width: 1px;
 }
 #options-bar-container{
-    position: relative; 
     overflow: visible; 
     box-sizing: border-box; 
     min-height: 1px;
@@ -108,11 +104,19 @@ div.scrollmenu > div {
     cursor: pointer;
     font-weight: 600;
 }
+#options-toggle > .fa-bars{
+    position:absolute;
+    right:20px;
+}
 #page-navigator{
     display: inline-flex; 
     margin-left: 30px;
+    margin-top: 1px;
 }
 #paginator-container{
+    position:sticky;
+    top:0px;
+    z-index: 1;
     margin-top: 20px;
     display: inline-block;
     justify-content: flex-start;
@@ -145,6 +149,10 @@ div.scrollmenu > div {
     #options-bar{
         position:sticky;
     }
+    #options-bar-container{
+        position: sticky; 
+        top:20px;
+    }
     #page-navigator{
         max-width: 150px;
     }
@@ -155,9 +163,16 @@ div.scrollmenu > div {
         padding-left: 0px;
         padding-right: 0px;
     }
+    #cards{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
     main{
         padding-left: 0px;
         padding-right: 0px;
+    }
+    #options-bar-container{
+        position: relative; 
     }
     #page-navigator{
         max-width: 50px;

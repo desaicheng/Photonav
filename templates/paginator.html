@@ -1,19 +1,15 @@
-<!-- <div id="pagination-number-button" class="btn-group">
-    <button id="pagination-button" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        Landmarks Per Page
-    </button>
-    <div id="paginator-menu" class="dropdown-menu">
-        <a id="paginator-selection-header" class="dropdown-item disabled" href="#">Landmarks Per Page</a>
-    </div>
-</div> -->
-<nav aria-label="page-selector" style="display: inline-flex;">
+<nav aria-label="page-selector" style="display: inline-flex;margin-left:30px;">
     <ul id="page-selections" class="pagination pagination-sm">
     </ul>
 </nav>
-<div id="page-navigator" class="form-group">
+<div id="page-navigator" class="form-group" data-toggle="page-navigator-tooltip" title="Jump to Page">
     <form onsubmit="return newPage(document.getElementById('page-input').value)">
-        <input type="text" class="form-control" id="page-input" placeholder="Page Number">
+        <input type="text" class="form-control" id="page-input" placeholder="Page Number" style="height:100%;">
         <input type="submit" style="display: none">
     </form>
 </div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="page-navigator-tooltip"]').tooltip();
+    });
+</script>
