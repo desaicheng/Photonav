@@ -113,7 +113,7 @@ div.scrollmenu > div {
     margin-left: 30px;
     margin-top: 1px;
 }
-#paginator-container{
+#top-bar-container{
     position:sticky;
     top:0px;
     z-index: 1;

@@ -62,4 +62,25 @@
         getLandmarks('skip', 'skip', -1, pageNum);
         changePage(pageNum);
     };
+    // search city using Google Maps Javascript API
+    var autocomplete;
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search predictions to
+        // geographical location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('autocomplete'), { types: ['geocode'] });
+        autocomplete.setFields(['address_component']);
+        // When the user selects an address from the drop-down, populate the
+        // address fields in the form.
+        autocomplete.addListener('place_changed', searchAddress);
+    }
+    function searchAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+        console.info(document.getElementById("autocomplete").value);
+    }
 </script>
+<!-- Google maps Javascript API -->
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz_wsqkbSduXxT5Z_h60wPavplGTxIFOA&libraries=places&callback=initAutocomplete">
+    </script>

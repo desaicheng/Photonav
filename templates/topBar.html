@@ -8,6 +8,12 @@
         <input type="submit" style="display: none">
     </form>
 </div>
+<div id="locationField">
+    <form onsubmit="return searchAddress()">
+        <input id="autocomplete" placeholder="Enter location" type="text" />
+        <input type="submit" style="display: none">
+    </form>
+</div>
 <script>
     $(document).ready(function () {
         $('[data-toggle="page-navigator-tooltip"]').tooltip();

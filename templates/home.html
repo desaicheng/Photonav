@@ -29,7 +29,6 @@
         })(window, document, "script", "dataLayer", "GTM-TT5WG67");
     </script>
     <!-- End Google Tag Manager -->
-
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -82,17 +81,14 @@
                 {% include 'sortButton.html' %}
             </div> -->
             <div id="card-deck" class="col-lg-9 col-md-9">
-                <div id="paginator-container" class="flex-container">
-                    {% include 'paginator.html' %}
+                <div id="top-bar-container" class="flex-container">
+                    {% include 'topBar.html' %}
                 </div>
                 <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
             </div>
         </div>
         {% include 'landmarkModal.html' %}
         {% include 'landmarkPictureModal.html' %}
-        <!-- <div id="paginator-container" class="flex-container">
-            {% include 'paginator.html' %}
-        </div> -->
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
@@ -290,6 +286,6 @@
     {% include 'sortButtonScript.html' %}
     {% include 'landmarkPictureModalScript.html' %}
     {% include 'landmarkModalScript.html' %}
-    {% include 'paginatorScript.html' %}
+    {% include 'topBarScript.html' %}
     {% include 'listener.html' %}
 </body>
