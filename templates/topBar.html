@@ -4,7 +4,7 @@
 </nav>
 <div id="page-navigator" class="form-group" data-toggle="page-navigator-tooltip" title="Jump to Page">
     <form onsubmit="return newPage(document.getElementById('page-input').value)">
-        <input type="text" class="form-control" id="page-input" placeholder="Page Number" style="height:100%;">
+        <input type="text" class="form-control" id="page-input" placeholder="Page" style="height:100%;">
         <input type="submit" style="display: none">
     </form>
 </div>
@@ -12,6 +12,7 @@
     <form onsubmit="return searchAddress()">
         <input id="autocomplete" placeholder="Enter location" type="text" />
         <input type="submit" style="display: none">
+        {%csrf_token%}
     </form>
 </div>
 <script>

@@ -170,10 +170,10 @@
                         thirtyMiles = response['30-miles'];
                         sixtyMiles = response['60-miles'];
                         allDistance = response['all'];
-                        document.getElementById("10-radius").innerText += `10 Miles (${tenMiles})`;
-                        document.getElementById("30-radius").innerText += `30 Miles (${thirtyMiles})`;
-                        document.getElementById("60-radius").innerText += `60 Miles (${sixtyMiles})`;
-                        document.getElementById("all-radius").innerText += `All (${allDistance})`;
+                        document.getElementById("10-radius").innerText = `10 Miles (${tenMiles})`;
+                        document.getElementById("30-radius").innerText = `30 Miles (${thirtyMiles})`;
+                        document.getElementById("60-radius").innerText = `60 Miles (${sixtyMiles})`;
+                        document.getElementById("all-radius").innerText = `All (${allDistance})`;
                     }
                     addCards(response['data']);
                 }
@@ -282,8 +282,9 @@
         }
     </script>
     {% endverbatim %}
-    {% include 'distanceFilterScript.html' %}
-    {% include 'sortButtonScript.html' %}
+    {% include 'displayOptionsScript.html' %}
+    <!-- {% include 'distanceFilterScript.html' %}
+    {% include 'sortButtonScript.html' %} -->
     {% include 'landmarkPictureModalScript.html' %}
     {% include 'landmarkModalScript.html' %}
     {% include 'topBarScript.html' %}

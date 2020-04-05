@@ -1,38 +1,4 @@
 <script>
-    // change number of photos displayed on one page
-    async function newPagination(num, isInit) {
-        if (num == curPagination && isInit == false) {
-            return;
-        }
-        document.getElementById(`${curPagination}-page`).classList.remove("selected");
-        curPagination = num;
-        document.getElementById(`${num}-page`).classList.add("selected");
-        return $.ajax({
-            type: "GET",
-            url: '/ajax/newPaginationNumber',
-            async: false,
-            data: {
-                'num': num
-            },
-            dataType: 'json',
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            },
-            // test
-            success: function (info) {
-                numOfPages = info.numOfPages;
-                if (isInit == false) {
-                    getLandmarks('skip', 'skip', -1, 1).then(result => {
-                    }).catch(error => {
-                        console.info(error);
-                    });
-                    changePage(1);
-                }
-            }
-
-        });
-    };
     // update page selections menu upon page change
     function changePage(pageNum) {
         document.getElementById("page-selections").innerHTML = ""
@@ -72,12 +38,50 @@
         autocomplete.setFields(['address_component']);
         // When the user selects an address from the drop-down, populate the
         // address fields in the form.
-        autocomplete.addListener('place_changed', searchAddress);
+        autocomplete.addListener('place_changed', changeCity);
     }
-    function searchAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-        console.info(document.getElementById("autocomplete").value);
+    function changeCity() {
+        // Search for new city
+        city = document.getElementById("autocomplete").value;
+        // set tenMiles to -1 so getLandmarks function recalculates the number of landmarks within certain range
+        tenMiles = -1;
+        return $.ajax({
+            type: "POST",
+            url: '/ajax/changeCity',
+            async: false,
+            data: {
+                'location': city,
+                csrfmiddlewaretoken: '{{csrf_token}}'
+            },
+            dataType: 'json',
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            },
+            success: function (response) {
+                if (response['found'] == true) {
+                    usersLatitude = response['latitude'];
+                    usersLongitude = response['longitude'];
+                    getLandmarks('skip', 'skip', -1, 1);
+                    changePage(1);
+                }
+                else {
+                    document.getElementById("location-warning").innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                  Please enter valid location!
+                </div>
+              `;
+                }
+            }
+
+        });
+        // var xhr = new XMLHttpRequest();
+        // xhr.open("POST", '/ajax/changeCity', true);
+        // xhr.setRequestHeader('Content-Type', 'application/json');
+        // xhr.send(JSON.stringify({
+        //     'location': city
+        // }));
+
     }
 </script>
 <!-- Google maps Javascript API -->

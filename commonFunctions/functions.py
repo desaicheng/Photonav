@@ -11,12 +11,14 @@ def fixString(string):
 def searchIndex(arr, val, key):
     l = 0
     r = len(arr)-1
+    print(r, 'frist')
     while r-l > 1:
         m = (r+l)//2
         if arr[m][key] < val:
             l = m
         else:
             r = m
+    print(r, 'fds')
     if arr[r][key] > val:
         return r-1
     return r

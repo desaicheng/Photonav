@@ -7,7 +7,33 @@ from django.db import connection
 from haversine import haversine, Unit
 import json
 import math
+import requests
 
+# change the user longitude and latitude
+
+
+def changeCity(request):
+    if request.is_ajax():
+        del request.session['init']
+        city = request.POST.get('location', None)
+        city = city.replace(" ", "")
+        apiURL = 'https://www.mapquestapi.com/geocoding/v1/address?key=ZRb86WSa39Yu7MFnHMSNntodkrBGYHwJ&inFormat=kvp&outFormat=json&location={}&thumbMaps=false'.format(
+            city)
+        response = json.loads(requests.get(apiURL).text)
+        resultCity = response['results'][0]["locations"][0]["adminArea5"]
+        if resultCity == "":
+            return HttpResponse(json.dumps({'found': False}))
+        else:
+            request.session['latitude'] = response['results'][0]["locations"][0]["latLng"]['lat']
+            request.session['longitude'] = response['results'][0]["locations"][0]["latLng"]['lng']
+            return HttpResponse(json.dumps({
+                'found': True,
+                'latitude': request.session['latitude'],
+                'longitude': request.session['longitude']
+            }
+            ))
+    else:
+        raise Exception('Invaid Request')
 
 # set user back to default
 
@@ -43,7 +69,7 @@ def getLandmarks(request):
         page = int(request.GET.get('page', 1))
         start = (page-1)*paginationNumber
         end = page*paginationNumber
-        maxDiff = radius/10
+        print(userLongitude, userLatitude, start, end)
         queryStatement = 'SELECT * FROM Landmarks_landmark LEFT JOIN landmarks_frontPagePhotos ON Landmarks_landmark.neighborhood = landmarks_frontPagePhotos.landmark_id'
         request.session['data'] = getPhotos(queryStatement, userLatitude,
                                             userLongitude, radius)
