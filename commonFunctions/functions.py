@@ -9,6 +9,8 @@ def fixString(string):
 
 
 def searchIndex(arr, val, key):
+    if arr[0][key] > val:
+        return 0
     l = 0
     r = len(arr)-1
     print(r, 'frist')
@@ -20,5 +22,5 @@ def searchIndex(arr, val, key):
             r = m
     print(r, 'fds')
     if arr[r][key] > val:
-        return r-1
-    return r
+        return r
+    return r+1
