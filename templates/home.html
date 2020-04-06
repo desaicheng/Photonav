@@ -41,7 +41,7 @@
 
     <!-- Styling CSS -->
     <link rel="stylesheet" , type="text/css" href="{% static 'css/homeCss.css' %}">
-    <link rel="shortcut icon" href="">
+    <link rel="shortcut icon" href="#">
     <title>Photonav</title>
 </head>
 
@@ -93,11 +93,16 @@
                 {% include 'distanceFilter.html' %}
                 {% include 'sortButton.html' %}
             </div> -->
-            <div id="card-deck" class="col-lg-9 col-md-9">
+            <div class="col-lg-9 col-md-9">
                 <div id="top-bar-container" class="flex-container">
                     {% include 'topBar.html' %}
                 </div>
-                <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
+                <div id="card-deck">
+                    <!-- <div id="top-bar-container" class="flex-container">
+                    {% include 'topBar.html' %}
+                </div> -->
+                    <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
+                </div>
             </div>
         </div>
         {% include 'landmarkModal.html' %}

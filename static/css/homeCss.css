@@ -156,6 +156,11 @@ div.scrollmenu > div {
     #page-navigator{
         max-width: 150px;
     }
+    #top-bar-container{
+        padding-left:13px;
+        width:calc(100% + 32px);
+        /* width:2000px; */
+    }
   }
 /* when window size is small */
 @media only screen and (max-width: 600px) {
