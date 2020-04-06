@@ -44,7 +44,6 @@
         // Search for new city
         city = document.getElementById("autocomplete").value;
         // set tenMiles to -1 so getLandmarks function recalculates the number of landmarks within certain range
-        tenMiles = -1;
         return $.ajax({
             type: "POST",
             url: '/ajax/changeCity',
@@ -60,6 +59,8 @@
             },
             success: function (response) {
                 if (response['found'] == true) {
+                    curPage = 1;
+                    tenMiles = -1;
                     usersLatitude = response['latitude'];
                     usersLongitude = response['longitude'];
                     getLandmarks('skip', 'skip', -1, 1);

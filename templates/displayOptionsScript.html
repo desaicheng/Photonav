@@ -70,6 +70,7 @@
         // main()
         getLandmarks(usersLatitude, usersLongitude, radius, 1).then(result => {
             newPagination(curPagination, true).then(result => {
+                curPage = 1;
                 changePage(1);
             }).catch(error => {
                 console.info(error);

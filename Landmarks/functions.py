@@ -27,6 +27,5 @@ def getPhotos(queryStatement, userLatitude, userLongitude, radius):
     def distance(elem):
         return elem['distanceAway']
     spots.sort(key=distance)
-    print(spots)
     maxIndex = searchIndex(spots, radius, 'distanceAway')
     return spots[:maxIndex]
