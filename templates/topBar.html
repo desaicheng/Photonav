@@ -2,6 +2,15 @@
     <ul id="page-selections" class="pagination pagination-sm">
     </ul>
 </nav>
+<div class="dropdown" id="change-page-dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="true">
+        Page
+        <span class="caret"></span>
+    </button>
+    <ul id="page-dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    </ul>
+</div>
 <div id="page-navigator" class="form-group" data-toggle="page-navigator-tooltip" title="Jump to Page">
     <form onsubmit="return newPage(document.getElementById('page-input').value)">
         <input type="text" class="form-control" id="page-input" placeholder="Page" style="height:100%;">

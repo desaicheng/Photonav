@@ -158,7 +158,7 @@ div.scrollmenu > div {
     }
     #top-bar-container{
         padding-left:13px;
-        width:calc(100% + 32px);
+        width:calc(100% + 30px);
         /* width:2000px; */
     }
   }

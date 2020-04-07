@@ -16,8 +16,6 @@
         else {
             document.getElementById(`${curRadius}-radius`).classList.add("selected");
         }
-        // document.getElementById("button-display-distance").value = radius;
-        // main()
         getLandmarks(usersLatitude, usersLongitude, radius, 1).then(result => {
             newPagination(curPagination, true).then(result => {
                 changePage(1);
@@ -27,10 +25,6 @@
         }).catch(error => {
             console.info(error);
         })
-        // await newPagination(curPagination, true).catch(error => {
-        //     console.info(error);
-        // })
-        // changePage(1);
     }
     document.getElementById("10-radius").onclick = function radiusTen() {
         newRadius(10);

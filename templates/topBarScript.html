@@ -76,13 +76,18 @@
             }
 
         });
-        // var xhr = new XMLHttpRequest();
-        // xhr.open("POST", '/ajax/changeCity', true);
-        // xhr.setRequestHeader('Content-Type', 'application/json');
-        // xhr.send(JSON.stringify({
-        //     'location': city
-        // }));
 
+    };
+    // fill page dropdown
+    function fillPageDropdown() {
+        document.getElementById("page-dropdown-menu").innerHTML =
+            `<li><a>Page</a></li>
+        <li role="separator" class="divider"></li>`
+        for (var i = 1; i < numOfPages + 1; i++) {
+            document.getElementById("page-dropdown-menu").innerHTML +=
+                `<li><a href="#" onclick = "newPage(${i})">${i}</a></li>`;
+
+        }
     }
 </script>
 <!-- Google maps Javascript API -->
