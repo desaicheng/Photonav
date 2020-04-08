@@ -13,6 +13,12 @@ body{
     left:calc(-50vw + 50%);
     width:100vw;
 }
+#change-page-dropdown{
+    border:solid;
+    border-width:1px;
+    padding-bottom: 4px;
+    margin-left:8px;
+}
 div.scrollmenu {
     overflow: auto;
     white-space: nowrap;
@@ -120,7 +126,7 @@ div.scrollmenu > div {
     margin-top: 20px;
     display: inline-block;
     justify-content: flex-start;
-    background-color: aliceblue;
+    background-color: white;
 }
 #pagination-number-button{
     display: inline-flex;
@@ -184,5 +190,8 @@ div.scrollmenu > div {
     }
     #page-input::placeholder{
         font-size: 10px;
+    }
+    #carousel-container{
+        height:160px;
     }
 }

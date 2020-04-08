@@ -49,7 +49,7 @@
     }
 
     // distance filter
-    function newRadius(radius) {
+    function newRadius(radius, setOnly) {
         if (radius == curRadius) {
             return;
         }
@@ -66,8 +66,9 @@
         else {
             document.getElementById(`${curRadius}-radius`).classList.add("selected");
         }
-        // document.getElementById("button-display-distance").value = radius;
-        // main()
+        if (setOnly) {
+            return;
+        }
         getLandmarks(usersLatitude, usersLongitude, radius, 1).then(result => {
             newPagination(curPagination, true).then(result => {
                 curPage = 1;
@@ -80,16 +81,16 @@
         })
     }
     document.getElementById("10-radius").onclick = function radiusTen() {
-        newRadius(10);
+        newRadius(10, false);
     }
     document.getElementById("30-radius").onclick = function radiusTen() {
-        newRadius(30);
+        newRadius(30, false);
     }
     document.getElementById("60-radius").onclick = function radiusTen() {
-        newRadius(60);
+        newRadius(60, false);
     }
     document.getElementById("all-radius").onclick = function radiusTen() {
-        newRadius(1000000);
+        newRadius(1000000, false);
     }
 
     // pagination number
@@ -99,9 +100,11 @@
         if (num == curPagination && isInit == false) {
             return;
         }
+        console.info(document.getElementById(`${curPagination}-page`));
         document.getElementById(`${curPagination}-page`).classList.remove("selected");
         curPagination = num;
         document.getElementById(`${num}-page`).classList.add("selected");
+        console.info(document.getElementById(`${curPagination}-page`));
         return $.ajax({
             type: "GET",
             url: '/ajax/newPaginationNumber',

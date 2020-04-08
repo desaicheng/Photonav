@@ -23,6 +23,8 @@ def getPhotos(queryStatement, userLatitude, userLongitude, radius):
         newObj['distanceAway'] = haversine(
             (float(userLatitude), float(userLongitude)), (newObj['latitude'], newObj['longitude']), unit="mi")
         spots.append(newObj)
+    if len(spots) == 0:
+        return spots
 
     def distance(elem):
         return elem['distanceAway']

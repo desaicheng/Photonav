@@ -8,7 +8,7 @@ def fixString(string):
 
 
 def searchIndex(arr, val, key):
-    if arr[0][key] > val:
+    if len(arr) == 0 or arr[0][key] > val:
         return 0
     l = 0
     r = len(arr)-1

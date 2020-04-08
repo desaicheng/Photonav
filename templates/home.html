@@ -69,7 +69,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <main role="main" class="container">
-        {% include 'topCarousel.html' %}
+        <div id="carousel-container">
+            {% include 'topCarousel.html' %}
+        </div>
         <div id="heading-container">
             <div class="starter-template">
                 <div style="width:100%;text-align: center;display:inline-block">
@@ -89,18 +91,11 @@
         </div>
         <div class="row">
             {% include 'displayOptions.html' %}
-            <!-- <div class="flex-container col-lg-3 col-md-3">
-                {% include 'distanceFilter.html' %}
-                {% include 'sortButton.html' %}
-            </div> -->
             <div class="col-lg-9 col-md-9">
                 <div id="top-bar-container" class="flex-container">
                     {% include 'topBar.html' %}
                 </div>
                 <div id="card-deck">
-                    <!-- <div id="top-bar-container" class="flex-container">
-                    {% include 'topBar.html' %}
-                </div> -->
                     <div id="cards" class="row row-cols-1 row-cols-md-3"></div>
                 </div>
             </div>
@@ -122,6 +117,7 @@
         var sixtyMiles = -1;
         var allDistance = -1;
         var curPage = 1;
+        var isMobile = false;
         // var ajaxCalling = false;
         window.onload = main;
         // add landmarks to page
@@ -248,6 +244,7 @@
                     });
                 }
                 else {
+                    isMobile = true;
                     await setMobile().catch(error => {
                         console.info(error);
                     });
@@ -288,8 +285,6 @@
     </script>
     {% endverbatim %}
     {% include 'displayOptionsScript.html' %}
-    <!-- {% include 'distanceFilterScript.html' %}
-    {% include 'sortButtonScript.html' %} -->
     {% include 'landmarkPictureModalScript.html' %}
     {% include 'landmarkModalScript.html' %}
     {% include 'topBarScript.html' %}

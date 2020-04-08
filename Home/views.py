@@ -124,8 +124,10 @@ def getLandmarkInfo(request):
 
 def newPaginationNumber(request):
     if request.is_ajax():
-        request.session['paginationNumber'] = int(request.GET.get('num', 12))
-        paginationNumber = request.session['paginationNumber']
+        # request.session['paginationNumber'] = int(request.GET.get('num', 12))
+        # paginationNumber = request.session['paginationNumber']
+        request.session['paginationNumber'] = 1
+        paginationNumber = 1
         data = request.session['data']
         numOfPages = math.ceil(len(data)/paginationNumber)
         ret = {
