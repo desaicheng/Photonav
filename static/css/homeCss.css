@@ -16,8 +16,8 @@ body{
 #change-page-dropdown{
     border:solid;
     border-width:1px;
-    padding-bottom: 4px;
     margin-left:8px;
+    display:inline-block;
 }
 div.scrollmenu {
     overflow: auto;
@@ -78,6 +78,9 @@ div.scrollmenu > div {
     padding: 20px;
     font-size: 35px;
 }
+#location-field > #location-form{
+    display:inline-block;
+}
 .modal{
     overflow:auto;
 }
@@ -110,9 +113,12 @@ div.scrollmenu > div {
     cursor: pointer;
     font-weight: 600;
 }
+#options-toggle{
+    position:relative;
+}
 #options-toggle > .fa-bars{
     position:absolute;
-    right:20px;
+    right:10px;
 }
 #page-navigator{
     display: inline-flex; 
@@ -144,7 +150,7 @@ div.scrollmenu > div {
     margin-left:10%;
 }
 /* when window size is large */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 514px) {
     .card {
       height:300px;
     }
@@ -159,6 +165,10 @@ div.scrollmenu > div {
         position: sticky; 
         top:20px;
     }
+    #options-toggle > .fa-bars{
+        bottom:5px;
+        right:5px;
+    }
     #page-navigator{
         max-width: 150px;
     }
@@ -169,7 +179,7 @@ div.scrollmenu > div {
     }
   }
 /* when window size is small */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 514px) {
     .card-container {
         padding-left: 0px;
         padding-right: 0px;
@@ -177,6 +187,9 @@ div.scrollmenu > div {
     #cards{
         margin-left: 0px;
         margin-right: 0px;
+    }
+    #options-toggle > .fa-bars{
+        bottom: 5.8px;
     }
     main{
         padding-left: 0px;
