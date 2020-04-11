@@ -58,7 +58,9 @@
                 alert(thrownError);
             },
             success: function (response) {
+                console.info('city changed');
                 if (response['found'] == true) {
+                    document.getElementById("location-warning").innerHTML = ``;
                     curPage = 1;
                     tenMiles = -1;
                     usersLatitude = response['latitude'];

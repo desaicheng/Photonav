@@ -13,8 +13,10 @@ import requests
 
 
 def changeCity(request):
+    print('city changed')
     if request.is_ajax():
-        del request.session['init']
+        if 'init' in request.session:
+            del request.session['init']
         city = request.POST.get('location', None)
         city = city.replace(" ", "")
         apiURL = 'https://www.mapquestapi.com/geocoding/v1/address?key=ZRb86WSa39Yu7MFnHMSNntodkrBGYHwJ&inFormat=kvp&outFormat=json&location={}&thumbMaps=false'.format(
@@ -126,8 +128,8 @@ def newPaginationNumber(request):
     if request.is_ajax():
         # request.session['paginationNumber'] = int(request.GET.get('num', 12))
         # paginationNumber = request.session['paginationNumber']
-        request.session['paginationNumber'] = 1
-        paginationNumber = 1
+        request.session['paginationNumber'] = 4
+        paginationNumber = 4
         data = request.session['data']
         numOfPages = math.ceil(len(data)/paginationNumber)
         ret = {

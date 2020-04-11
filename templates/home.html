@@ -231,6 +231,7 @@
             curPage = 1;
             HandlebarsIntl.registerWith(Handlebars);
             async function locationSuccess(position, data) {
+                document.getElementById("location-warning").innerHTML = ``;
                 usersLatitude = position.coords.latitude;
                 usersLongitude = position.coords.longitude;
                 const radius = curRadius;
