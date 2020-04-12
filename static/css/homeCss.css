@@ -18,6 +18,7 @@ body{
     border-width:1px;
     margin-left:8px;
     display:inline-block;
+    margin-right: 20px;
 }
 div.scrollmenu {
     overflow: auto;
@@ -78,8 +79,9 @@ div.scrollmenu > div {
     padding: 20px;
     font-size: 35px;
 }
-#location-field > #location-form{
+#locationField{
     display:inline-block;
+    width:30%;
 }
 .modal{
     overflow:auto;
@@ -154,6 +156,10 @@ div.scrollmenu > div {
     .card {
       height:300px;
     }
+    #cards > .card-container{
+        padding-left:40px;
+        padding-right:40px;
+    }
     .card > a > img{
         height:100%;
         object-fit: cover;
@@ -174,7 +180,8 @@ div.scrollmenu > div {
     }
     #top-bar-container{
         padding-left:13px;
-        width:calc(100% + 30px);
+        margin-left:24px;
+        width:calc(100% - 18.5px);
         /* width:2000px; */
     }
   }
