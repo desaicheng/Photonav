@@ -1,0 +1,224 @@
+body{
+    min-height: 100vh;
+    background-color: rgba(199, 199, 199, 0.096);
+
+}
+.lead{
+    text-align:center;
+    font-size:20px;
+    color:rgb(255, 187, 0);
+}
+.carousel-inner{
+    position: relative;
+    left:calc(-50vw + 50%);
+    width:100vw;
+}
+#change-page-dropdown{
+    border:solid;
+    border-width:1px;
+    margin-left:8px;
+    display:inline-block;
+    margin-right: 20px;
+}
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+  }
+div.scrollmenu > div {
+    margin-left:10px;
+}
+#heading-container {
+    display:flex;
+    text-align: center;
+}
+.card{
+    border:solid;
+    border-width: 1px;
+    width: 100%; 
+}
+.card-body{
+    padding-top: 0px;
+}
+#cards{
+    margin-top: 30px;
+}
+.option-class > .class-header{
+    text-align: center;
+    font-weight: 300;
+}
+.flex-container{
+    display:flex;
+    justify-content: center;
+    width: 100%;
+}
+.button-container{
+    height:20px
+}
+#display-options > .divider{
+    height:2px;
+    width:100%;
+    background-color: black;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.flex-item{
+    display:inline-block;
+}
+#image-modal{
+    height:70%;
+    width:100%;
+    overflow-y:hidden;
+}
+#landmark-modal{
+
+}
+#landmark-picture-modal{
+    
+}
+#landmark-picture-close{
+    padding: 20px;
+    font-size: 35px;
+}
+#locationField{
+    display:inline-block;
+    width:30%;
+}
+.modal{
+    overflow:auto;
+}
+#newLandmarkButton{
+    margin-left:8px;
+}
+.option-class > .option-item{
+    cursor: pointer;;
+}
+.option-class > .selected{
+    font-weight: 600;
+    cursor:default;
+    color: blue;
+}
+#options-bar{
+    background-color: white;
+    padding:20px;
+    border:solid;
+    border-width: 1px;
+}
+#options-bar-container{
+    overflow: visible; 
+    box-sizing: border-box; 
+    min-height: 1px;
+    height:fit-content;
+    display: inline-block;
+    width: 100%;
+    
+}
+
+#options-bar > #options-toggle{
+    width:100%;
+    cursor: pointer;
+    font-weight: 600;
+}
+#options-toggle{
+    position:relative;
+}
+#options-toggle > .fa-bars{
+    position:absolute;
+    right:10px;
+}
+#page-navigator{
+    display: inline-flex; 
+    margin-left: 30px;
+    margin-top: 1px;
+}
+#top-bar-container{
+    position:sticky;
+    top:0px;
+    z-index: 1;
+    margin-top: 20px;
+    display: inline-block;
+    justify-content: flex-start;
+    background-color: white;
+}
+.topBarLine{
+    width:100%;
+    margin-bottom: 5px;
+}
+#pagination-number-button{
+    display: inline-flex;
+    margin-right: 15px;
+}
+#second-header-row{
+    width:100%;
+    text-align: center;
+    display:inline-block;
+}
+.starter-template{
+    display:inline-block;
+    width:100%;
+    margin-right:10%;
+    margin-left:10%;
+}
+/* when window size is large */
+@media only screen and (min-width: 514px) {
+    .card {
+      height:300px;
+    }
+    #cards > .card-container{
+        padding-left:40px;
+        padding-right:40px;
+    }
+    .card > a > img{
+        height:100%;
+        object-fit: cover;
+    }
+    #options-bar{
+        position:sticky;
+    }
+    #options-bar-container{
+        position: sticky; 
+        top:20px;
+    }
+    #options-toggle > .fa-bars{
+        bottom:5px;
+        right:5px;
+    }
+    #page-navigator{
+        max-width: 150px;
+    }
+    #top-bar-container{
+        padding-left:13px;
+        margin-left:24px;
+        width:calc(100% - 18.5px);
+        /* width:2000px; */
+    }
+  }
+/* when window size is small */
+@media only screen and (max-width: 514px) {
+    .card-container {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    #cards{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    #options-toggle > .fa-bars{
+        bottom: 5.8px;
+    }
+    main{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    #options-bar-container{
+        position: relative; 
+    }
+    #page-navigator{
+        max-width: 50px;
+    }
+    #page-input::placeholder{
+        font-size: 10px;
+    }
+    #carousel-container{
+        height:160px;
+    }
+}
