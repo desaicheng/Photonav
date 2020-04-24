@@ -21,8 +21,8 @@
                 const landmarkPhotosTemplate =
                     `<div style="display: inline-block;">
                         <div class="card" style="width: 280px; height:300px;">
-                        <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="{{imgSrc}}" style="height:75%;overflow-y:hidden;">
-                            <img src={{imgSrc}} style="object-fit:fill;height:100%;width:100%">
+                        <a type="button" class="MainNavText" data-toggle="modal" href="#landmark-picture-modal" data-src="https://photonav.s3.amazonaws.com{{imgSrc}}" style="height:75%;overflow-y:hidden;">
+                            <img src="https://photonav.s3.amazonaws.com{{imgSrc}}" style="object-fit:fill;height:100%;width:100%">
                         </a>
                         <div class="card-body" style="height:25%">
                             <div>{{formatNumber distanceAway}} Miles Away</div>

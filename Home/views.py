@@ -111,7 +111,7 @@ def getLandmarkInfo(request):
             distanceAway = haversine(
                 (float(userLatitude), float(userLongitude)), (photo[4], photo[3]), unit="mi")
             curPhoto = {
-                "imgSrc": "../static/images/{}/{}".format(photo[5].replace(" ", ""), photo[1]),
+                "imgSrc": "/images/{}/{}".format(photo[5].replace(" ", ""), photo[1]),
                 "distanceAway": distanceAway,
                 "directionsUrl": photo[2]
             }
@@ -197,3 +197,11 @@ def sortBy(request):
 
 def home(request):
     return render(request, "home.html")
+
+# create a new Landmark
+
+
+def createLandmark(request):
+    print('success')
+    home(request)
+    return HttpResponse({})

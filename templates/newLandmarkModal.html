@@ -1,0 +1,39 @@
+<div class="modal fade" id="newLandmarkModal" tabindex="-1" role="dialog" aria-labelledby="landmarkModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="landmark-modal-title">Enter Landmark Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="add/createlandmark" method="post" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="landmarkNameInput">Landmark Name</label>
+                        <input type="text" class="form-control" id="landmarkNameInput" name="landmarkName">
+                    </div>
+                    <div class="form-group">
+                        <label for="landmarkLatitudeInput">Latitude</label>
+                        <input type="number" class="form-control" id="landmarkLatitudeInput" name="landmarkLatitude">
+                    </div>
+                    <div class="form-group">
+                        <label for="landmarkLongitudeInput">Longitude</label>
+                        <input type="number" class="form-control" id="landmarkLongitudeInput" name="landmarkLongitude">
+                    </div>
+                    <div class="form-group">
+                        <label for="landmarkImageInput">Upload Image</label>
+                        <input type="file" class="form-control" id="landmarkImageInput" accept="image/*"
+                            name="landmarkImage">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

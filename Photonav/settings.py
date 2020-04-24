@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import boto3
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,9 +32,12 @@ ALLOWED_HOSTS = ['photonav.herokuapp.com', '127.0.0.1', '0.0.0.0']
 # Application definition
 
 INSTALLED_APPS = [
+    'Add',
     'ErrorPages',
     'Home',
     'Landmarks',
+    'storages',
+    's3direct',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,8 +144,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
@@ -152,5 +154,21 @@ STATICFILES_DIRS = [
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-MEDIA_URL = '/media/'
+
+AWS_STORAGE_BUCKET_NAME = "photonav"
+AWS_S3_REGION_NAME = 'us-east-2'
+AWS_ACCESS_KEY_ID = 'AKIAR4BPJNOQKTGBSEGQ'
+AWS_SECRET_ACCESS_KEY = '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'
+
+STATICFILES_STORAGE = 'Photonav.custom_storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'Photonav.custom_storages.MediaStorage'
+STATICFILES_LOCATION = ''
+MEDIAFILES_LOCATION = 'images/'
+
+S3DIRECT_REGION = 'us-east-2'
+AWS_S3_ENDPOINT_URL = 'https://s3-us-east-2.amazonaws.com'
+S3DIRECT_DESTINATIONS = {
+    'primary_destination': {
+        'key': 'uploads/images/',
+    },
+}

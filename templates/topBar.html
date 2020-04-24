@@ -1,19 +1,27 @@
-<span class="dropdown" id="change-page-dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="true">
-        Page
-        <span class="caret"></span>
+<div class="topBarLine">
+    <span class="dropdown" id="change-page-dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+            Page
+            <span class="caret"></span>
+        </button>
+        <ul id="page-dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        </ul>
+    </span>
+    <span id="locationField">
+        <form id="location-form">
+            <input id="autocomplete" placeholder="Enter location" type="text" />
+            <input type="submit" style="display: none">
+            {%csrf_token%}
+        </form>
+    </span>
+</div>
+<div class="topBarLine">
+    <button id="newLandmarkButton" data-toggle="modal" data-target="#newLandmarkModal">
+        <i class="fa fa-plus"></i>
+        Add New Landmark
     </button>
-    <ul id="page-dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    </ul>
-</span>
-<span id="locationField">
-    <form id="location-form">
-        <input id="autocomplete" placeholder="Enter location" type="text" />
-        <input type="submit" style="display: none">
-        {%csrf_token%}
-    </form>
-</span>
+</div>
 <script>
     $(document).ready(function () {
         $('[data-toggle="page-navigator-tooltip"]').tooltip();

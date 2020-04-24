@@ -69,6 +69,7 @@
         if (setOnly) {
             return;
         }
+        // get landmarks and number of pages again, then default to first page
         getLandmarks(usersLatitude, usersLongitude, radius, 1).then(result => {
             newPagination(curPagination, true).then(result => {
                 curPage = 1;
@@ -96,15 +97,13 @@
     // pagination number
 
     // change number of photos displayed on one page
-    async function newPagination(num, isInit) {
-        if (num == curPagination && isInit == false) {
+    async function newPagination(num, limited) {
+        if (num == curPagination && limited == false) {
             return;
         }
-        console.info(document.getElementById(`${curPagination}-page`));
         document.getElementById(`${curPagination}-page`).classList.remove("selected");
         curPagination = num;
         document.getElementById(`${num}-page`).classList.add("selected");
-        console.info(document.getElementById(`${curPagination}-page`));
         return $.ajax({
             type: "GET",
             url: '/ajax/newPaginationNumber',
@@ -117,12 +116,12 @@
                 alert(xhr.status);
                 alert(thrownError);
             },
-            // test
             success: function (info) {
                 numOfPages = info.numOfPages;
                 // function found in topBarScript
                 fillPageDropdown();
-                if (isInit == false) {
+                // if limited is false then get landmarks again and change to first page
+                if (limited == false) {
                     getLandmarks('skip', 'skip', -1, 1).then(result => {
                     }).catch(error => {
                         console.info(error);

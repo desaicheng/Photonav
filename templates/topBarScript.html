@@ -1,5 +1,5 @@
 <script>
-    // update page selections menu upon page change
+    // update page selections dropdown upon page change
     function changePage(pageNum) {
         // document.getElementById("page-selections").innerHTML = ""
         // if (pageNum > 2) {
@@ -28,6 +28,8 @@
         getLandmarks('skip', 'skip', -1, pageNum);
         changePage(pageNum);
     };
+
+
     // search city using Google Maps Javascript API
     var autocomplete;
     function initAutocomplete() {
@@ -40,6 +42,8 @@
         // address fields in the form.
         autocomplete.addListener('place_changed', changeCity);
     }
+
+    // change current longitude and latitude to that of new city
     function changeCity() {
         // Search for new city
         city = document.getElementById("autocomplete").value;
@@ -58,15 +62,12 @@
                 alert(thrownError);
             },
             success: function (response) {
-                console.info('city changed');
                 if (response['found'] == true) {
-                    document.getElementById("location-warning").innerHTML = ``;
                     curPage = 1;
                     tenMiles = -1;
                     usersLatitude = response['latitude'];
                     usersLongitude = response['longitude'];
                     if (curRadius != 1000000) {
-                        // newPagination, getLandmarks, and changePage are called in newRadius
                         newRadius(1000000, true);
                     }
 
@@ -81,8 +82,6 @@
                                 changePage(1);
                             });
                         }
-                        // fillPageDropdown();
-                        // changePage(1);
                     }).catch(error => {
                         console.info(error);
                     });

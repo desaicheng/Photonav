@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, getLandmarks, sortBy, getLandmarkInfo, newPaginationNumber, setMobile, setDesktop, changeCity
+from .views import home, getLandmarks, sortBy, getLandmarkInfo, newPaginationNumber, setMobile, setDesktop, changeCity, createLandmark
 
 urlpatterns = [
     path('', home, name="home"),
@@ -13,4 +13,6 @@ urlpatterns = [
          name="setMobile"),
     path('ajax/setDesktop', setDesktop,
          name="setDesktop"),
+    path('createLandmark', createLandmark,
+         name="createLandmark"),
 ]

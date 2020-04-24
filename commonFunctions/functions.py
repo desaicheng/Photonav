@@ -1,3 +1,6 @@
+# handle apostrophes in a string
+
+
 def fixString(string):
     stringArr = [i for i in string]
     badIndexes = [i for i in range(
@@ -5,6 +8,8 @@ def fixString(string):
     for i in range(len(badIndexes)-1, -1, -1):
         stringArr.insert(badIndexes[i], "\'")
     return ''.join(stringArr)
+
+# binary search to return the smallest index i such that arr[i][key] is greater than val
 
 
 def searchIndex(arr, val, key):

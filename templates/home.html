@@ -102,6 +102,7 @@
         </div>
         {% include 'landmarkModal.html' %}
         {% include 'landmarkPictureModal.html' %}
+        {% include 'newLandmarkModal.html' %}
     </main>
 
     {% verbatim %}
@@ -126,8 +127,8 @@
             const photoSpotTemplate = `
                 <div class="col-md-12 col-sm-12 col-lg-6 col-xs-6 card-container" style = "margin-top:30px;">
                     <div class="card">
-                      <a type="button" id="image-modal" class="MainNavText" data-toggle="modal" href="#landmark-modal" data-landmark="{{neighborhood}}" data-src="{{imgSrc}}">
-                        <img src={{imgSrc}} style="width:100%;object-fit:fill">
+                      <a type="button" id="image-modal" class="MainNavText" data-toggle="modal" href="#landmark-modal" data-landmark="{{neighborhood}}" data-src="https://photonav.s3.amazonaws.com{{imgSrc}}">
+                        <img src="https://photonav.s3.amazonaws.com{{imgSrc}}" style="width:100%;object-fit:fill">
                       </a>
                       <div class="card-body" style="height:30%;text-align:center;">
                         <h5 class="card-title">{{neighborhood}}
@@ -143,6 +144,7 @@
                     "cards"
                 ).innerHTML += renderPhotoSpotTemplate(spot);
             }
+            document.getElementById("location-warning").innerHTML = ``;
         }
         // retrieve landmarks for current page
         async function getLandmarks(usersLatitude, usersLongitude, radius, page) {
@@ -231,7 +233,6 @@
             curPage = 1;
             HandlebarsIntl.registerWith(Handlebars);
             async function locationSuccess(position, data) {
-                document.getElementById("location-warning").innerHTML = ``;
                 usersLatitude = position.coords.latitude;
                 usersLongitude = position.coords.longitude;
                 const radius = curRadius;

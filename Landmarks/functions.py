@@ -14,7 +14,7 @@ def getPhotos(queryStatement, userLatitude, userLongitude, radius):
     spots = []
     for spot in data:
         newObj = {
-            "imgSrc": "../static/images/{}/".format(spot[0].replace(" ", ""))+spot[2],
+            "imgSrc": "/images/{}/".format(spot[0].replace(" ", ""))+spot[2],
             "latitude": spot[4],
             "longitude": spot[3],
             "neighborhood": spot[0]
