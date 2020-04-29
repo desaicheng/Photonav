@@ -111,7 +111,7 @@ def getLandmarkInfo(request):
             distanceAway = haversine(
                 (float(userLatitude), float(userLongitude)), (photo[4], photo[3]), unit="mi")
             curPhoto = {
-                "imgSrc": "/images/{}/{}".format(photo[5].replace(" ", ""), photo[1]),
+                "imgSrc": "/images/{}/{}".format(photo[5].replace(" ", "").lower(), photo[1]),
                 "distanceAway": distanceAway,
                 "directionsUrl": photo[2]
             }

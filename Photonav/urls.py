@@ -23,6 +23,5 @@ urlpatterns = [
     path('', include('Home.urls')),
     path('add/', include('Add.urls')),
     path('error', include('ErrorPages.urls')),
-    path('s3direct/', include('s3direct.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

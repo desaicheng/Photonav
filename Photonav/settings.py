@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'Home',
     'Landmarks',
     'storages',
-    's3direct',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,11 +163,3 @@ STATICFILES_STORAGE = 'Photonav.custom_storages.StaticStorage'
 DEFAULT_FILE_STORAGE = 'Photonav.custom_storages.MediaStorage'
 STATICFILES_LOCATION = ''
 MEDIAFILES_LOCATION = 'images/'
-
-S3DIRECT_REGION = 'us-east-2'
-AWS_S3_ENDPOINT_URL = 'https://s3-us-east-2.amazonaws.com'
-S3DIRECT_DESTINATIONS = {
-    'primary_destination': {
-        'key': 'uploads/images/',
-    },
-}
