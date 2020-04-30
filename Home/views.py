@@ -9,7 +9,8 @@ from decouple import config
 import json
 import math
 import requests
-
+from boto.s3.connection import S3Connection
+import os
 
 # change the user longitude and latitude
 
@@ -20,7 +21,7 @@ def changeCity(request):
             del request.session['init']
         city = request.POST.get('location', None)
         city = city.replace(" ", "")
-        apiURL = 'https://www.mapquestapi.com/geocoding/v1/address?key={}&inFormat=kvp&outFormat=json&location={}&thumbMaps=false'.format(config('MAPQUEST_GEOCODING_API_KEY'),
+        apiURL = 'https://www.mapquestapi.com/geocoding/v1/address?key={}&inFormat=kvp&outFormat=json&location={}&thumbMaps=false'.format(os.environ['MAPQUEST_GEOCODING_API_KEY'],
                                                                                                                                           city)
         response = json.loads(requests.get(apiURL).text)
         resultCity = response['results'][0]["locations"][0]["adminArea5"]
