@@ -13,7 +13,6 @@ def getPhotos(queryStatement, userLatitude, userLongitude, radius):
         raise Exception('Could not get Photos')
     spots = []
     for spot in data:
-        print(spot)
         newObj = {
             "imgSrc": "/images/{}/".format(spot[0].replace(" ", "").lower())+spot[3],
             "latitude": spot[5],

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import boto3
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -96,9 +97,9 @@ WSGI_APPLICATION = 'Photonav.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_e3bb1c5de5a2f32',
-        'USER': 'ba2c815962a0e2',
-        'PASSWORD': 'f217d12a',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
         'HOST': 'us-cdbr-iron-east-04.cleardb.net',
         'PORT': '3306',
     }
@@ -154,10 +155,10 @@ STATICFILES_DIRS = [
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
-AWS_STORAGE_BUCKET_NAME = "photonav"
-AWS_S3_REGION_NAME = 'us-east-2'
-AWS_ACCESS_KEY_ID = 'AKIAR4BPJNOQKTGBSEGQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 
 STATICFILES_STORAGE = 'Photonav.custom_storages.StaticStorage'
 DEFAULT_FILE_STORAGE = 'Photonav.custom_storages.MediaStorage'

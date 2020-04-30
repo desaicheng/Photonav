@@ -5,22 +5,23 @@ from Landmarks.functions import getPhotos
 from commonFunctions.functions import fixString, searchIndex
 from django.db import connection
 from haversine import haversine, Unit
+from decouple import config
 import json
 import math
 import requests
+
 
 # change the user longitude and latitude
 
 
 def changeCity(request):
-    print('city changed')
     if request.is_ajax():
         if 'init' in request.session:
             del request.session['init']
         city = request.POST.get('location', None)
         city = city.replace(" ", "")
-        apiURL = 'https://www.mapquestapi.com/geocoding/v1/address?key=ZRb86WSa39Yu7MFnHMSNntodkrBGYHwJ&inFormat=kvp&outFormat=json&location={}&thumbMaps=false'.format(
-            city)
+        apiURL = 'https://www.mapquestapi.com/geocoding/v1/address?key={}&inFormat=kvp&outFormat=json&location={}&thumbMaps=false'.format(config('MAPQUEST_GEOCODING_API_KEY'),
+                                                                                                                                          city)
         response = json.loads(requests.get(apiURL).text)
         resultCity = response['results'][0]["locations"][0]["adminArea5"]
         if resultCity == "":
@@ -71,7 +72,6 @@ def getLandmarks(request):
         page = int(request.GET.get('page', 1))
         start = (page-1)*paginationNumber
         end = page*paginationNumber
-        print(userLongitude, userLatitude, start, end)
         queryStatement = 'SELECT * FROM Landmarks_landmark LEFT JOIN landmarks_frontPagePhotos ON Landmarks_landmark.neighborhood = landmarks_frontPagePhotos.landmark_id'
         request.session['data'] = getPhotos(queryStatement, userLatitude,
                                             userLongitude, radius)
@@ -126,10 +126,10 @@ def getLandmarkInfo(request):
 
 def newPaginationNumber(request):
     if request.is_ajax():
-        # request.session['paginationNumber'] = int(request.GET.get('num', 12))
-        # paginationNumber = request.session['paginationNumber']
-        request.session['paginationNumber'] = 4
-        paginationNumber = 4
+        request.session['paginationNumber'] = int(request.GET.get('num', 12))
+        paginationNumber = request.session['paginationNumber']
+        # request.session['paginationNumber'] = 4
+        # paginationNumber = 4
         data = request.session['data']
         numOfPages = math.ceil(len(data)/paginationNumber)
         ret = {

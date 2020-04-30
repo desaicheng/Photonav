@@ -152,7 +152,6 @@ def createLandmark(request):
     if checkLandmarkExists(landmarkName):
         return HttpResponse({'response': 'landmark already exists'})
     else:
-        print(' ')
         addTolandmarks_landmark(landmarkName)
         addTolandmarks_photo(request)
         addTolandmarks_frontpagephotos(request)
