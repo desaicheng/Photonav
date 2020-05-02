@@ -13,21 +13,21 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="landmarkNameInput">Landmark Name</label>
-                        <input type="text" class="form-control" id="landmarkNameInput" name="landmarkName">
+                        <input required type="text" class="form-control" id="landmarkNameInput" name="landmarkName">
                     </div>
                     <div class="form-group">
                         <label for="landmarkLatitudeInput">Latitude</label>
-                        <input type="number" step=any class="form-control" id="landmarkLatitudeInput"
+                        <input required type="number" step=any class="form-control" id="landmarkLatitudeInput"
                             name="landmarkLatitude">
                     </div>
                     <div class="form-group">
                         <label for="landmarkLongitudeInput">Longitude</label>
-                        <input type="number" step=any class="form-control" id="landmarkLongitudeInput"
+                        <input required type="number" step=any class="form-control" id="landmarkLongitudeInput"
                             name="landmarkLongitude">
                     </div>
                     <div class="form-group">
                         <label for="landmarkImageInput">Upload Image</label>
-                        <input type="file" class="form-control" id="landmarkImageInput" accept="image/*"
+                        <input required type="file" class="form-control" id="landmarkImageInput" accept="image/*"
                             name="landmarkImage">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

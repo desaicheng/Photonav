@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.core.files.storage import FileSystemStorage
 from django.db import connection
 import os
@@ -156,13 +156,5 @@ def createLandmark(request):
         addTolandmarks_photo(request)
         addTolandmarks_frontpagephotos(request)
         uploadPhotoToS3(request, 1)
-    #     addTolandmarks_landmark(landmarkName)
-    # fixedLandmarkName = landmarkName.replace(" ", "").lower()
-    # session = boto3.Session(
-    #     aws_access_key_id='AKIAR4BPJNOQKTGBSEGQ',
-    #     aws_secret_access_key='y1PR1oIVk4yVXfyMwEl1pThgC3ZGpZDVVo4oKXiy'
-    # )
-    # s3 = session.resource('s3')
-    # s3.Bucket('photonav').put_object(Key='images/{}/{}_1.jpg'.format(fixedLandmarkName, fixedLandmarkName),
-    #                                  Body=landmarkImage)
-    return HttpResponse({'response': 'landmark successfully added'})
+    return redirect('home')
+    # return HttpResponse({'response': 'landmark successfully added'})
