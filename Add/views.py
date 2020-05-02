@@ -4,6 +4,7 @@ from django.db import connection
 import os
 import boto3
 from commonFunctions.functions import fixString
+from decouple import config
 # Create your views here.
 
 # tries to add new landmark to landmarks_landmark
@@ -32,8 +33,8 @@ def uploadPhotoToS3(request, photoIndex):
     landmarkName = request.POST['landmarkName']
     fixedLandmarkName = landmarkName.replace(" ", "").lower()
     session = boto3.Session(
-        aws_access_key_id='AKIAR4BPJNOQKTGBSEGQ',
-        aws_secret_access_key='y1PR1oIVk4yVXfyMwEl1pThgC3ZGpZDVVo4oKXiy'
+        aws_access_key_id=config('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=config('AWS_SECRET_ACCESS_KEY')
     )
     s3 = session.resource('s3')
     s3.Bucket('photonav').put_object(Key='images/{}/{}_{}.jpg'.format(fixedLandmarkName, fixedLandmarkName, photoIndex),
@@ -157,4 +158,3 @@ def createLandmark(request):
         addTolandmarks_frontpagephotos(request)
         uploadPhotoToS3(request, 1)
     return redirect('home')
-    # return HttpResponse({'response': 'landmark successfully added'})

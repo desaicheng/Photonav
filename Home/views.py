@@ -57,7 +57,6 @@ def defaultSession(request):
 
 
 def getLandmarks(request):
-    print()
     if request.is_ajax():
         request.session['latitude'] = request.GET.get('latitude', None) if request.GET.get(
             'latitude', None) != 'skip' else request.session['latitude']
