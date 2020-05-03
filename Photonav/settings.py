@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['photonav.herokuapp.com', '127.0.0.1', '0.0.0.0']
 
 INSTALLED_APPS = [
     'Add',
+    'Delete',
     'ErrorPages',
     'Home',
     'Landmarks',

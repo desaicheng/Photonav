@@ -5,6 +5,7 @@ import os
 import boto3
 from commonFunctions.functions import fixString
 from decouple import config
+from Delete.views import deleteLandmark
 # Create your views here.
 
 # tries to add new landmark to landmarks_landmark
@@ -13,15 +14,14 @@ from decouple import config
 
 
 def addTolandmarks_landmark(landmarkName):
-    fixedLandmarkName = landmarkName.replace(" ", "").lower()
     queryStatement = 'INSERT INTO landmarks_landmark (neighborhood,photoIndex) VALUES (\'{}\',0)'.format(
         fixString(landmarkName))
     try:
         with connection.cursor() as cursor:
             cursor.execute(queryStatement)
     except:
-        raise Exception('Could not insert into landmarks_landmark')
-    return
+        return False
+    return True
 
 # uploads a photo to S3
 # requires: request, photoIndex
@@ -94,9 +94,9 @@ def addTolandmarks_frontpagephotos(request):
     try:
         with connection.cursor() as cursor:
             cursor.execute(queryStatement)
-        return
+        return True
     except:
-        raise Exception('Could not add to landmarks_frontpagephotos')
+        return False
 
 # tries to add new photo to landmarks_photo, updates photo Index in landmarks_landmark
 # requires: request
@@ -115,13 +115,13 @@ def addTolandmarks_photo(request):
     imgSrc = fixedLandmarkName+'_{}.jpg'.format(photoIndex)
     queryStatement = 'INSERT INTO landmarks_photo (imgSrc,directionsUrl,longitude,latitude,landmark_id) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(
         imgSrc, directionsUrl, landmarkLongitude, landmarkLatitude, fixString(landmarkName))
-    print(queryStatement)
     try:
         with connection.cursor() as cursor:
             cursor.execute(queryStatement)
-        return
+        return True
     except:
-        raise Exception('Could not add to landmarks_photo')
+        print('photofailed')
+        return False
 
 # check if landmark already exists in database
 # requires: a string with the name of a landmark
@@ -137,7 +137,6 @@ def checkLandmarkExists(landmarkName):
             cursor.execute(queryStatement)
             landmark = cursor.fetchall()
             if len(landmark) > 0:
-                print('landmark found')
                 return True
             else:
                 return False
@@ -153,8 +152,10 @@ def createLandmark(request):
     if checkLandmarkExists(landmarkName):
         return HttpResponse({'response': 'landmark already exists'})
     else:
-        addTolandmarks_landmark(landmarkName)
-        addTolandmarks_photo(request)
-        addTolandmarks_frontpagephotos(request)
+        success = addTolandmarks_landmark(landmarkName)
+        success = success and addTolandmarks_photo(request)
+        success = success and addTolandmarks_frontpagephotos(request)
+        if success == False:
+            deleteLandmark(landmarkName)
         uploadPhotoToS3(request, 1)
     return redirect('home')
