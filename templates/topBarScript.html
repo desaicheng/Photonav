@@ -69,17 +69,20 @@
                     usersLongitude = response['longitude'];
                     if (curRadius != 1000000) {
                         newRadius(1000000, true);
+                        document.getElementById("all-radius-checkbox").checked = true;
                     }
 
                     getLandmarks('skip', 'skip', curRadius, 1).then(result => {
                         if (isMobile) {
-                            newPagination(4, true).then(result => {
-                                changePage(1);
+                            newPagination(4, false).then(result => {
+                                document.getElementById(`4-page-checkbox`).checked = true;
+                                // changePage(1);
                             });
                         }
                         else {
-                            newPagination(12, true).then(result => {
-                                changePage(1);
+                            newPagination(12, false).then(result => {
+                                document.getElementById(`12-page-checkbox`).checked = true;
+                                // changePage(1);
                             });
                         }
                     }).catch(error => {

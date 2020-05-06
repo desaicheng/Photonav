@@ -170,10 +170,10 @@
                         thirtyMiles = response['30-miles'];
                         sixtyMiles = response['60-miles'];
                         allDistance = response['all'];
-                        document.getElementById("10-radius").innerText = `10 Miles (${tenMiles})`;
-                        document.getElementById("30-radius").innerText = `30 Miles (${thirtyMiles})`;
-                        document.getElementById("60-radius").innerText = `60 Miles (${sixtyMiles})`;
-                        document.getElementById("all-radius").innerText = `All (${allDistance})`;
+                        document.getElementById("10-radius-text").innerText = `10 Miles (${tenMiles})`;
+                        document.getElementById("30-radius-text").innerText = `30 Miles (${thirtyMiles})`;
+                        document.getElementById("60-radius-text").innerText = `60 Miles (${sixtyMiles})`;
+                        document.getElementById("all-radius-text").innerText = `All (${allDistance})`;
                     }
                     addCards(response['data']);
                 }
@@ -185,10 +185,18 @@
             curPagination = 4;
             document.getElementById("pagination-number-container").innerHTML = `<h6 class="class-header">Landmarks Per Page</h6>`;
             document.getElementById("pagination-number-container").innerHTML += `
-            <div id="4-page" class="option-item selected" onclick="newPagination(4,false)"
-            href="#">4</div>
-        <div id="8-page" class="option-item" onclick="newPagination(8,false)" href="#">8</div>
-        <div id="12-page" class="option-item" onclick="newPagination(12,false)" href="#">12</div>`;
+                <div class="custom-control custom-checkbox" id="4-page" onclick="newPagination(4,false)">
+                    <input type="checkbox" class="custom-control-input" id="4-page-checkbox" checked>
+                    <label class="custom-control-label" for="4-page-checkbox" id="4-page-text">4</label>
+                </div>
+                <div class="custom-control custom-checkbox" id="8-page" onclick="newPagination(8,false)">
+                    <input type="checkbox" class="custom-control-input" id="8-page-checkbox">
+                    <label class="custom-control-label" for="8-page-checkbox" id="8-page-text">8</label>
+                </div>
+                <div class="custom-control custom-checkbox" id="12-page" onclick="newPagination(12,false)">
+                    <input type="checkbox" class="custom-control-input" id="12-page-checkbox">
+                    <label class="custom-control-label" for="12-page-checkbox" id="12-page-text">12</label>
+                </div>`;
             return $.ajax({
                 type: "GET",
                 url: '/ajax/setMobile',
@@ -208,10 +216,18 @@
         async function setDesktop() {
             document.getElementById("pagination-number-container").innerHTML = `<h6 class="class-header">Landmarks Per Page</h6>`;
             document.getElementById("pagination-number-container").innerHTML += `
-            <div id="12-page" class="option-item selected" onclick="newPagination(12,false)"
-            href="#">12</div>
-        <div id="24-page" class="option-item" onclick="newPagination(24,false)" href="#">24</div>
-        <div id="48-page" class="option-item" onclick="newPagination(48,false)" href="#">48</div>`;
+                <div class="custom-control custom-checkbox" id="12-page" onclick="newPagination(12,false)">
+                    <input type="checkbox" class="custom-control-input" id="12-page-checkbox" checked>
+                    <label class="custom-control-label" for="12-page-checkbox" id="12-page-text">12</label>
+                </div>
+                <div class="custom-control custom-checkbox" id="24-page" onclick="newPagination(24,false)">
+                    <input type="checkbox" class="custom-control-input" id="24-page-checkbox">
+                    <label class="custom-control-label" for="24-page-checkbox" id="24-page-text">24</label>
+                </div>
+                <div class="custom-control custom-checkbox" id="48-page" onclick="newPagination(48,false)">
+                    <input type="checkbox" class="custom-control-input" id="48-page-checkbox">
+                    <label class="custom-control-label" for="48-page-checkbox" id="48-page-text">48</label>
+                </div>`;
             return $.ajax({
                 type: "GET",
                 url: '/ajax/setDesktop',
@@ -251,7 +267,10 @@
                 await getLandmarks(usersLatitude, usersLongitude, radius, 1).catch(error => {
                     console.info(error);
                 })
-                await newPagination(curPagination, true).catch(error => {
+                await newPagination(curPagination, true).then(result => {
+                    document.getElementById(`${curPagination}-page-checkbox`).checked = true;
+                }).catch(error => {
+
                     console.info(error);
                 })
                 changePage(1);

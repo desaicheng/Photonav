@@ -24,7 +24,6 @@
             },
             success: function (spots) {
                 // ajaxCalling = false;
-                console.info(spots)
                 addCards(spots);
                 changePage(1);
             }
@@ -34,9 +33,13 @@
     // new criteria to sort landmarks
     function newSort(type) {
         sortLandmarks(type).then(result => {
-            document.getElementById(`${curSort}-option`).classList.remove("selected");
+            if (type.toLowerCase() == curSort) {
+                // recheck checkbox upon being clicked again
+                document.getElementById(`${curSort}-option-checkbox`).checked = true;
+                return;
+            }
+            document.getElementById(`${curSort}-option-checkbox`).checked = false;
             curSort = type.toLowerCase();
-            document.getElementById(`${curSort}-option`).classList.add("selected");
         }).catch(error => {
             console.info(error);
         })
@@ -48,30 +51,34 @@
         newSort('Distance');
     }
 
-    // distance filter
+    // filter landmarks by new radius
+    // param: new radius, bool setOnly
+    // returns: nothing, if set only is true, then only sets curRadius and updates selected element in display options, otherwise calls server side to get updated landmarks mutating session variables data at the same time, navigates back to first page
     function newRadius(radius, setOnly) {
         if (radius == curRadius) {
+            // recheck checkbox upon being clicked again
+            if (curRadius == 1000000) {
+                document.getElementById("all-radius-checkbox").checked = true;
+            }
+            else {
+                document.getElementById(`${curRadius}-radius-checkbox`).checked = true;
+            }
             return;
         }
         if (curRadius == 1000000) {
-            document.getElementById("all-radius").classList.remove("selected");
+            document.getElementById("all-radius-checkbox").checked = false;
         }
         else {
-            document.getElementById(`${curRadius}-radius`).classList.remove("selected");
+            document.getElementById(`${curRadius}-radius-checkbox`).checked = false;
         }
         curRadius = radius;
-        if (curRadius == 1000000) {
-            document.getElementById("all-radius").classList.add("selected");
-        }
-        else {
-            document.getElementById(`${curRadius}-radius`).classList.add("selected");
-        }
         if (setOnly) {
             return;
         }
         // get landmarks and number of pages again, then default to first page
         getLandmarks(usersLatitude, usersLongitude, radius, 1).then(result => {
             newPagination(curPagination, true).then(result => {
+                document.getElementById(`${curPagination}-page-checkbox`).checked = true;
                 curPage = 1;
                 changePage(1);
             }).catch(error => {
@@ -99,11 +106,12 @@
     // change number of photos displayed on one page
     async function newPagination(num, limited) {
         if (num == curPagination && limited == false) {
+            // recheck checkbox upon being clicked again
+            document.getElementById(`${num}-page-checkbox`).checked = true;
             return;
         }
-        document.getElementById(`${curPagination}-page`).classList.remove("selected");
+        document.getElementById(`${curPagination}-page-checkbox`).checked = false;
         curPagination = num;
-        document.getElementById(`${num}-page`).classList.add("selected");
         return $.ajax({
             type: "GET",
             url: '/ajax/newPaginationNumber',
