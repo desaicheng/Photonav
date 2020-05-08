@@ -1,0 +1,18 @@
+<div id="location-warning"></div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+        <a href="#" class="del-msg">&times;</a>
+        </li>
+        {% endfor %}
+</ul>
+{% endif %}
+<script>
+    $(document).ready(function () {
+        // delete message
+        $('.del-msg').on('click', function () {
+            $('.del-msg').parent().attr('style', 'display:none;');
+        })
+    });
+</script>

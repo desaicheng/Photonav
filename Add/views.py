@@ -6,6 +6,7 @@ import boto3
 from commonFunctions.functions import fixString
 from decouple import config
 from Delete.views import deleteLandmark
+from django.contrib import messages
 # Create your views here.
 
 # tries to add new landmark to landmarks_landmark
@@ -120,7 +121,6 @@ def addTolandmarks_photo(request):
             cursor.execute(queryStatement)
         return True
     except:
-        print('photofailed')
         return False
 
 # check if landmark already exists in database
@@ -157,5 +157,8 @@ def createLandmark(request):
         success = success and addTolandmarks_frontpagephotos(request)
         if success == False:
             deleteLandmark(landmarkName)
+            messages.error(request, 'Unable to Add Landmark')
+            return redirect('home')
         uploadPhotoToS3(request, 1)
+        messages.success(request, 'Landmark Successfully Added')
     return redirect('home')

@@ -40,7 +40,7 @@ def deleteFromlandmarks_frontpagephotos(landmarkName):
 # throws exception if unable to delete
 
 
-def addTolandmarks_photo(landmarkName):
+def deleteFromlandmarks_photo(landmarkName):
     queryStatement = 'DELETE FROM landmarks_photo WHERE landmark_id = \'{}\''.format(
         fixString(landmarkName))
     try:
@@ -56,6 +56,6 @@ def addTolandmarks_photo(landmarkName):
 
 
 def deleteLandmark(landmarkName):
-    deleteFromlandmarks_landmark(landmarkName)
+    deleteFromlandmarks_photo(landmarkName)
     deleteFromlandmarks_frontpagephotos(landmarkName)
-    addTolandmarks_photo(landmarkName)
+    deleteFromlandmarks_landmark(landmarkName)
