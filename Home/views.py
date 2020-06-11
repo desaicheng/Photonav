@@ -11,6 +11,16 @@ import math
 import requests
 
 
+# change carousel images, assumes we are on first page of landmarks
+def changeCarousel(request):
+    if request.is_ajax():
+        data = request.session['data']
+        return HttpResponse(json.dumps({
+            "landmarks": data[:4]
+        }))
+    else:
+        raise Exception('Invaid Request')
+
 # change the user longitude and latitude
 
 
@@ -202,6 +212,5 @@ def home(request):
 
 
 def createLandmark(request):
-    print('success')
     home(request)
     return HttpResponse({})

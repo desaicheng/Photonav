@@ -146,6 +146,29 @@
             }
             document.getElementById("location-warning").innerHTML = ``;
         }
+        // change carousel images
+        async function changeCarousel() {
+            return $.ajax({
+                type: "GET",
+                url: '/ajax/changeCarousel',
+                async: false,
+                data: {
+                },
+                dataType: 'json',
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+                success: function (response) {
+                    landmarks = response["landmarks"];
+                    document.getElementById("carousel-img-1").src = "https://photonav.s3.amazonaws.com" + landmarks[0]["imgSrc"];
+                    document.getElementById("carousel-img-2").src = "https://photonav.s3.amazonaws.com" + landmarks[1]["imgSrc"];
+                    document.getElementById("carousel-img-3").src = "https://photonav.s3.amazonaws.com" + landmarks[2]["imgSrc"];
+                    document.getElementById("carousel-img-4").src = "https://photonav.s3.amazonaws.com" + landmarks[3]["imgSrc"];
+                }
+            });
+        }
+
         // retrieve landmarks for current page
         async function getLandmarks(usersLatitude, usersLongitude, radius, page) {
             return $.ajax({
@@ -267,6 +290,7 @@
                 await getLandmarks(usersLatitude, usersLongitude, radius, 1).catch(error => {
                     console.info(error);
                 })
+                changeCarousel();
                 await newPagination(curPagination, true).then(result => {
                     document.getElementById(`${curPagination}-page-checkbox`).checked = true;
                 }).catch(error => {
