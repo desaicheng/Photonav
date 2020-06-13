@@ -71,21 +71,27 @@
                         newRadius(1000000, true);
                         document.getElementById("all-radius-checkbox").checked = true;
                     }
-
-                    getLandmarks('skip', 'skip', curRadius, 1).then(result => {
-                        if (isMobile) {
-                            newPagination(4, false).then(result => {
-                                document.getElementById(`4-page-checkbox`).checked = true;
-                                // changePage(1);
-                            });
+                    newSort("Distance").then(result => {
+                        if (document.getElementById(`distance-option-checkbox`).checked == false) {
+                            document.getElementById(`distance-option-checkbox`).checked = true;
                         }
-                        else {
-                            newPagination(12, false).then(result => {
-                                document.getElementById(`12-page-checkbox`).checked = true;
-                                // changePage(1);
-                            });
-                        }
-                        changeCarousel();
+                        getLandmarks('skip', 'skip', curRadius, 1).then(result => {
+                            if (isMobile) {
+                                newPagination(4, false).then(result => {
+                                    document.getElementById(`4-page-checkbox`).checked = true;
+                                    // changePage(1);
+                                });
+                            }
+                            else {
+                                newPagination(12, false).then(result => {
+                                    document.getElementById(`12-page-checkbox`).checked = true;
+                                    // changePage(1);
+                                });
+                            }
+                            changeCarousel();
+                        }).catch(error => {
+                            console.info(error);
+                        });
                     }).catch(error => {
                         console.info(error);
                     });

@@ -31,7 +31,7 @@
         });
     };
     // new criteria to sort landmarks
-    function newSort(type) {
+    async function newSort(type) {
         sortLandmarks(type).then(result => {
             if (type.toLowerCase() == curSort) {
                 // recheck checkbox upon being clicked again
@@ -45,6 +45,7 @@
         })
     }
     document.getElementById("name-option").onclick = function sortName() {
+        // TODO make sure this is consistent with async
         newSort('Name');
     }
     document.getElementById("distance-option").onclick = function sortDistance() {
