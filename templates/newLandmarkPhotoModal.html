@@ -1,0 +1,42 @@
+<div class="modal fade" id="newLandmarkPhotoModal" tabindex="-1" role="dialog" aria-labelledby="landmarkModalPhotoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="landmark-photo-modal-title">New Photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="add/newlandmarkphoto" method="post" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input required type="hidden" class="form-control" id="landmarkPhotoNameInput"
+                            name="landmarkName">
+                    </div>
+                    <div class="form-group">
+                        <label for="landmarkPhotoLatitudeInput">Latitude</label>
+                        <input required type="number" step=any class="form-control" id="landmarkPhotoLatitudeInput"
+                            name="landmarkLatitude">
+                    </div>
+                    <div class="form-group">
+                        <label for="landmarkPhotoLongitudeInput">Longitude</label>
+                        <input required type="number" step=any class="form-control" id="landmarkPhotoLongitudeInput"
+                            name="landmarkLongitude">
+                    </div>
+                    <div class="form-group">
+                        <label for="landmarkPhotoImageInput">Upload Image</label>
+                        <input required type="file" class="form-control" id="landmarkPhotoImageInput"
+                            accept=".png, .jpg, .jpeg" name="landmarkImage">
+                    </div>
+                    <button id="new-landmark-photo-submit-button" type="submit" class="btn btn-primary"
+                        onclick="removeMessage()">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -162,3 +162,18 @@ def createLandmark(request):
         uploadPhotoToS3(request, 1)
         messages.success(request, 'Landmark Successfully Added')
     return redirect('home')
+
+
+# Adds a new Photo to an existing landmark, tries to get next photoIndex of landmark and tries to add photo to landmarks_photo and tries to upload photo to AWS S3, throws message error if unable to
+# requires: request from frontend with landmark Name, landmark Image, longitude and latitude
+# todo check if this API endpoint works
+def newLandmarkPhoto(request):
+    landmarkImage = request.FILES['landmarkImage']
+    landmarkName = request.POST['landmarkName']
+    photoIndex = getPhotoIndex(landmarkName) + 1
+    if addTolandmarks_photo(request) == False:
+        message.error(request, 'Unable to Add Landmark Photo')
+        return redirect('home')
+    uploadPhotoToS3(request, photoIndex)
+    messages.success(request, 'Landmark Photo Successfully Added')
+    return redirect('home')

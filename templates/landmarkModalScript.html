@@ -38,9 +38,25 @@
                         "scrollmenu"
                     ).innerHTML += renderLandmarkPhotosTemplate(photo);
                 }
+                let tempNeighborhood = neighborhood.replace(/ /g, "");
+                document.getElementById(
+                    "scrollmenu"
+                ).innerHTML += `<div style="display: inline-block;">
+                        <div id="${tempNeighborhood}-add-photo-button" class="card" style="width: 280px; height:300px;">
+                        <div type="button" class="card-body add-photo-body" data-toggle="modal" href="#newLandmarkPhotoModal">
+                            <i class="fa fa-plus fa-5x" style="margin-top:35%"></i>
+                            <div style="color:blue;"> Add New Photo </div>
+                        </div>
+                        </div>
+                    </div> 
+              `
+                document.getElementById(`${tempNeighborhood}-add-photo-button`).onclick = function () {
+                    document.getElementById("landmarkPhotoNameInput").value = neighborhood;
+                    document.getElementById("landmark-photo-modal-title").innerText = "New Photo for " + neighborhood;
+                }
             }
 
         });
-    })  
+    })
 </script>
 {% endverbatim %}
