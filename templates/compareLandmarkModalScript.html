@@ -1,0 +1,59 @@
+{% verbatim %}
+<script>
+    $('#compareLandmarksModal').on('show.bs.modal', function (event) {
+        var landmarksToGet = 'all';
+        console.log('gdsfs');
+        $.ajax({
+            type: "GET",
+            url: '/ajax/getLandmarkNames',
+            async: false,
+            data: {
+                landmarks: landmarksToGet
+            },
+            dataType: 'json',
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            },
+            success: function (landmarkNames) {
+                info = []
+                for (var i = 0; i < landmarkNames['names'].length; i++) {
+                    let temp = { 'name': landmarkNames['names'][i] }
+                    // console.info(landmarkNames['names'][i]);
+                    info.push(temp);
+                }
+                console.info(info)
+                const landmarkNamesTemplate =
+                    `<div class="form-group">
+                        <input required type="checkbox" class="form-control" id="{{name}}compareTag" name="{{name}}compareTag" value = {{name}}>
+                        <label for="landmarkName">{{name}}</label>
+                    </div>
+              `;
+                const renderLandmarkNamesTemplate = Handlebars.compile(landmarkNamesTemplate);
+                for (const name of info) {
+                    document.getElementById(
+                        "landmarkNamesList"
+                    ).innerHTML += renderLandmarkNamesTemplate(name);
+                }
+                //     let tempNeighborhood = neighborhood.replace(/ /g, "");
+                //     document.getElementById(
+                //         "scrollmenu"
+                //     ).innerHTML += `<div style="display: inline-block;">
+                //             <div id="${tempNeighborhood}-add-photo-button" class="card" style="width: 280px; height:300px;">
+                //             <div type="button" class="card-body add-photo-body" data-toggle="modal" href="#newLandmarkPhotoModal">
+                //                 <i class="fa fa-plus fa-5x" style="margin-top:35%"></i>
+                //                 <div style="color:blue;"> Add New Photo </div>
+                //             </div>
+                //             </div>
+                //         </div> 
+                //   `
+                //     document.getElementById(`${tempNeighborhood}-add-photo-button`).onclick = function () {
+                //         document.getElementById("landmarkPhotoNameInput").value = neighborhood;
+                //         document.getElementById("landmark-photo-modal-title").innerText = "New Photo for " + neighborhood;
+                //     }
+            }
+
+        });
+    })
+</script>
+{% endverbatim %}

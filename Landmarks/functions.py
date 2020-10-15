@@ -3,6 +3,21 @@ from django.db import connection
 from haversine import haversine, Unit
 from commonFunctions.functions import searchIndex
 
+# get all landmark names
+
+
+def getNames(queryStatement):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(queryStatement)
+            data = cursor.fetchall()
+    except:
+        raise Exception('Could not get Names')
+    names = []
+    for spot in data:
+        names.append(spot[0])
+    return names
+
 
 def getPhotos(queryStatement, userLatitude, userLongitude, radius):
     try:

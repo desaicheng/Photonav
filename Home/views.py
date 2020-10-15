@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.http import HttpResponse, JsonResponse
 from django.apps import apps
-from Landmarks.functions import getPhotos
+from Landmarks.functions import getPhotos, getNames
 from commonFunctions.functions import fixString, searchIndex
 from django.db import connection
 from haversine import haversine, Unit
@@ -62,6 +62,23 @@ def defaultSession(request):
     if 'init' in request.session:
         del request.session['init']
     return
+
+# get all Landmarks
+
+
+def getLandmarkNames(request):
+    if request.is_ajax():
+        request.session['landmarks'] = request.GET.get('landmarks', None) if request.GET.get(
+            'landmarks', None) != 'all' else -1
+        if request.session['landmarks'] == -1:
+            queryStatement = "SELECT * FROM landmarks_landmark"
+            request.session['names'] = getNames(queryStatement)
+        ret = {}
+        ret['names'] = request.session['names']
+        return HttpResponse(json.dumps(ret))
+    else:
+        raise Exception('Invaid Request')
+
 
 # get set of landmarks
 

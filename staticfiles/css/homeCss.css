@@ -88,6 +88,7 @@ div.scrollmenu > div {
 }
 #newLandmarkButton{
     margin-left:8px;
+    margin-right:10px;
 }
 .option-class > .option-item{
     cursor: pointer;;
