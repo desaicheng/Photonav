@@ -63,15 +63,16 @@ def defaultSession(request):
         del request.session['init']
     return
 
-# get all Landmarks
+# get subset of Landmarks
 
 
-def getLandmarkNames(request):
+def getLandmarkSubset(request):
     if request.is_ajax():
         request.session['landmarks'] = request.GET.get('landmarks', None) if request.GET.get(
             'landmarks', None) != 'all' else -1
         if request.session['landmarks'] == -1:
             queryStatement = "SELECT * FROM landmarks_landmark"
+            print(request.session['data'])
             request.session['names'] = getNames(queryStatement)
         ret = {}
         ret['names'] = request.session['names']

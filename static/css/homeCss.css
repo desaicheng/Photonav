@@ -24,6 +24,12 @@ body{
     display:inline-block;
     margin-right: 20px;
 }
+.compare-modal-name {
+    width:80%;
+}
+.compare-modal-names{
+    display:flex;
+}
 div.scrollmenu {
     overflow: auto;
     white-space: nowrap;

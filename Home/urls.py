@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import home, getLandmarks, sortBy, getLandmarkInfo, newPaginationNumber, setMobile, setDesktop, changeCity, createLandmark, changeCarousel, getLandmarkNames
+from .views import home, getLandmarks, sortBy, getLandmarkInfo, newPaginationNumber, setMobile, setDesktop, changeCity, createLandmark, changeCarousel, getLandmarkSubset
 
 urlpatterns = [
     path('', home, name="home"),
     path('ajax/changeCity', changeCity, name="changeCity"),
     path('ajax/getLandmarks', getLandmarks, name="getLandmarks"),
-    path('ajax/getLandmarkNames', getLandmarkNames, name="getLandmarkNames"),
+    path('ajax/getLandmarkSubset', getLandmarkSubset, name="getLandmarkSubset"),
     path('ajax/sortBy', sortBy, name="sortBy"),
     path('ajax/getLandmarkInfo', getLandmarkInfo, name="getLandmarkInfo"),
     path('ajax/newPaginationNumber', newPaginationNumber,

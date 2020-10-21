@@ -9,9 +9,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="compare/compareLandmarks" method="get" enctype='multipart/form-data'
-                    id="landmarkNamesList">
+                <form action="compare/compareLandmarks" method="get" enctype='multipart/form-data'>
                     {% csrf_token %}
+                    <div id="landmarkNamesList">
+
+                    </div>
                     <button id="landmark-compare-button" type="submit" class="btn btn-primary"
                         onclick="removeMessage()">Submit</button>
                 </form>
